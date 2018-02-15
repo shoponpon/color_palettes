@@ -12,6 +12,7 @@ import ImageAction from '../actions/ImageAction';
 import NavigationBar from './NavigationBar';
 import ImageView from './ImageView';
 import FormView from './FormView';
+import ColorPalettes from './ColorPalettes';
 
 class App extends Component {
 
@@ -46,6 +47,7 @@ class App extends Component {
             <FormView {...this.state} />
           </div>
         </div>
+        <ColorPalettes />
       </div>
     );
   }

@@ -4,6 +4,9 @@ import './App.css';
 //Stores
 import AppStore from '../stores/AppStore';
 
+//Components
+import NavigationBar from './NavigationBar';
+
 class App extends Component {
 
   static getStores(){
@@ -19,6 +22,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <NavigationBar />
         aaa
       </div>
     );

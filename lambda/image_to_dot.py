@@ -32,6 +32,7 @@ def colorcode2rgb(code):
 def cal_luminance(rgb):
     return rgb[0]*0.3+rgb[1]*0.6+rgb[2]*0.1
 
+'''
 if __name__ == '__main__':
     import sys
     img = cv2.imread(sys.argv[1])
@@ -39,3 +40,4 @@ if __name__ == '__main__':
     img = image2dot(img,colorcodes2rgbs(gameboy_color))
     cv2.imshow('img',img)
     cv2.waitKey(0)
+'''

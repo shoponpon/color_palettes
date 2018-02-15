@@ -21,22 +21,14 @@ function FieldGroup({ id, label, help, ...props }) {
 
 export default class FormView extends Component{
 
-    _showPreview(binary) {
-        const preview = document.getElementById('preview-image-tag');
-        preview.src = binary;
-    }
-
     componentDidMount(){
+        const { imageAction } = this.props;
         const inputFile = document.getElementById('formControlFile');
         inputFile.addEventListener('change',(e)=>{
             if(e.target.files.length != 1){
                 return;
             }
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                this._showPreview(e.target.result);
-            }.bind(this);
-            reader.readAsDataURL(e.target.files[0]);
+            imageAction.selectImageFile(e.target.files[0]);
         });
     }
 

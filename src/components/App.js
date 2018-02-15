@@ -3,6 +3,10 @@ import './App.css';
 
 //Stores
 import AppStore from '../stores/AppStore';
+import ImageStore from '../stores/ImageStore';
+
+//Actions
+import ImageAction from '../actions/ImageAction';
 
 //Components
 import NavigationBar from './NavigationBar';
@@ -12,12 +16,18 @@ import FormView from './FormView';
 class App extends Component {
 
   static getStores(){
-    return [AppStore];
+    return [
+      AppStore,
+      ImageStore
+    ];
   }
 
   static calculateState(){
     return {
-      app: AppStore.getState()
+      app: AppStore.getState(),
+      image: ImageStore.getState(),
+      
+      imageAction: ImageAction
     };
   }
 
@@ -30,10 +40,10 @@ class App extends Component {
         </div>
         <div className="two-column-view">
           <div className="two-column-view-left">
-            <ImageView />
+            <ImageView {...this.state} />
           </div>
           <div className="two-column-view-right">
-            <FormView />
+            <FormView {...this.state} />
           </div>
         </div>
       </div>

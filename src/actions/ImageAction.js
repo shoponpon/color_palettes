@@ -70,6 +70,9 @@ const ImageAction = {
                 canvas.width = image.width * bias;
                 canvas.height = image.height * bias;
                 const ctx = canvas.getContext('2d');
+                ctx.webkitImageSmoothingEnabled = false;
+                ctx.mozImageSmoothingEnabled = false;
+                ctx.imageSmoothingEnabled = false;
                 ctx.drawImage(image,0,0,canvas.width,canvas.height);
                 this._loadBinaryImage(canvas.toDataURL('jpg')).then((fixed_image)=>{
                     this._postEndpoint(fixed_image,dotNumber,colors);
@@ -89,9 +92,16 @@ const ImageAction = {
             "color4": this._rbgCssToCode(colors[3])
         }).then((response)=>{
             this._loadBinaryImage(response.data.binary).then((image)=>{
-                Dispatcher.dispatch({
+                /*Dispatcher.dispatch({
                     type: ImageActionTypes.SET_DOT_IMAGE,
                     outputImage: this._resizeImage(image,image.width*dotNumber,image.height*dotNumber)
+                });
+                const canvas = document.getElementById('dot-image-tag');
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(image,0,0);*/
+                Dispatcher.dispatch({
+                    type: ImageActionTypes.SET_DOT_IMAGE,
+                    outputImage: ""
                 });
             });
         }).catch(function(error){

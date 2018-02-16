@@ -24,15 +24,27 @@ def lambda_handler(event,context):
         event['color3'],
         event['color4']
     ]
+    mosaic_num= event['mosaic_num']
 
     #store colors to db
     record_palettes.record_palette(colors)
     palettes = record_palettes.getPalettes()
 
     #image processing
-    input_image = load_binary_image(binary)
-    output_image = image_to_dot.image2dot(input_image,image_to_dot.colorcodes2rgbs(colors))
-    retval, buffer = cv2.imencode('.png', output_image)
+    image = load_binary_image(binary)
+    
+    #resize - to mini
+    size = image.shape[:2][::-1]
+    image = cv2.resize(image,(int(size[0]/mosaic_num),int(size[1]/mosaic_num)),interpolation=cv2.INTER_NEAREST)
+
+    #change color
+    image = image_to_dot.image2dot(image,image_to_dot.colorcodes2rgbs(colors))
+
+    #resize - to original
+    image = cv2.resize(image,size,interpolation=cv2.INTER_NEAREST)
+
+    #encode with base64
+    _, buffer = cv2.imencode('.png', image)
     output_binary = 'data:image/png;base64,'+base64.b64encode(buffer).decode("UTF-8")
     return {
         "status":200,
@@ -73,6 +85,8 @@ def validateInput(request):
             pass
         else:
             return False
+    if request['mosaic_num'] <= 1 and request['mosaic_num'] > 16:
+        return False
     return True
 
 def load_binary_image(binary):
@@ -93,7 +107,8 @@ if __name__=='__main__':
         "color1":colors[0],
         "color2":colors[1],
         "color3":colors[2],
-        "color4":colors[3]
+        "color4":colors[3],
+        "mosaic_num":2
     }
     context = {}
     response = lambda_handler(event,context)

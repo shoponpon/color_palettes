@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import sqlite3
 
-db_name = "database.db"
+db_name = "./database.db"
 
 def record_palette(colors):
     conn = sqlite3.connect(db_name)

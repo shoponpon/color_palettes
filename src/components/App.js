@@ -32,7 +32,13 @@ class App extends Component {
     };
   }
 
+  componentWillMount(){
+    const { fetchColorPalettes } = this.state.imageAction;
+    fetchColorPalettes();
+  }
+
   render() {
+    console.log(this.state);
     return (
       <div className="App">
         <NavigationBar />
@@ -47,7 +53,7 @@ class App extends Component {
             <FormView {...this.state} />
           </div>
         </div>
-        <ColorPalettes />
+        <ColorPalettes {...this.state} />
       </div>
     );
   }

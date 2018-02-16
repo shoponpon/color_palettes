@@ -1,5 +1,8 @@
 import Dispatcher from '../Dispatcher'
 import ImageActionTypes from './ImageActionTypes';
+import axios from 'axios';
+
+const ENDPOINT = "";
 
 const ImageAction = {
     selectImageFile(file){
@@ -32,6 +35,22 @@ const ImageAction = {
         Dispatcher.dispatch({
             type: ImageActionTypes.COPY_PALETTES,
             id: id
+        });
+    },
+
+    fetchColorPalettes(){
+        //fetch
+        axios.get(ENDPOINT).then(function(response){
+/*            if(response.data){                
+            }
+            let palettes = [];
+            Dispatcher.dispatch({
+                type: ImageActionTypes.SET_COLOR_PALETTES,
+                palettes: palettes
+            });*/
+            console.log(response);
+        }).catch(function(error){
+            console.log(error);
         });
     }
 }

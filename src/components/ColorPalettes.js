@@ -3,29 +3,29 @@ import './ColorPalettes.css';
 
 import ColorPalette from './ColorPalette';
 
-export default class ColorPalettes extends Component{
-    constructor(props){
+export default class ColorPalettes extends Component {
+    constructor(props) {
         super(props);
     }
 
-    render(){
-
-        const palettes = [
-            ['#aabbcc','#00aa22','#aabbcc','#00aa22'],['#aabbcc','#00aa22','#aabbcc','#00aa22'],['#aabbcc','#00aa22','#aabbcc','#00aa22']
-        ];
+    render() {
+       
+        const { palettes } = this.props.image;
 
         return (
-            <div className="color-palettes">
+            <div>
                 <div className="title">最近変換されたカラーパレット（クリックで反映）</div>
-                <div className="line"/>
-                {(()=>{
-                    let list = [];
-                    for(let i = 0;i<palettes.length;i++){
-                        list.push(<ColorPalette colors={palettes[i]}/>)
-                    }
-                    return (list);
-                })()}
-                <div className="line"/>
+                <div className="color-palettes">
+                    <div className="line" />
+                    {(() => {
+                        let list = [];
+                        for (let i = 0; i < palettes.length; i++) {
+                            list.push(<ColorPalette className="color-palette" colors={palettes[i]} />)
+                        }
+                        return (list);
+                    })()}
+                    <div className="line" />
+                </div>
             </div>
         );
     }

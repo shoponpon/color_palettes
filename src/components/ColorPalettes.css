@@ -1,5 +1,10 @@
 .color-palettes{
+    white-space: nowrap;
+    overflow-x: scroll;
+}
 
+.color-palette{
+    display: inline-block;
 }
 
 .title{

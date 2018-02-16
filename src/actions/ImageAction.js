@@ -11,6 +11,28 @@ const ImageAction = {
             });
         }
         reader.readAsDataURL(file);
+    },
+
+    selectDotNumber(number){
+        Dispatcher.dispatch({
+            type: ImageActionTypes.SELECT_DOT_NUMBER,
+            dotNumber: number
+        });
+    },
+
+    selectPaletteColor(color,pickerId){
+        Dispatcher.dispatch({
+            type: ImageActionTypes.SELECT_PALETTE_COLOR,
+            id: pickerId,
+            color: "rgb("+color.r+","+color.g+","+color.b+")"
+        });
+    },
+
+    copyColorPalettes(id){
+        Dispatcher.dispatch({
+            type: ImageActionTypes.COPY_PALETTES,
+            id: id
+        });
     }
 }
 

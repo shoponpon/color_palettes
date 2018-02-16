@@ -33,6 +33,10 @@ export default class FormView extends Component {
     }
 
     render() {
+
+        const { imageAction } = this.props;
+        const { palette, dotNumber } = this.props.image;
+
         return (
             <div id="forms" >
                 <form className="form-view">
@@ -44,7 +48,7 @@ export default class FormView extends Component {
                     />
                     <FormGroup controlId="formControlNumber">
                         <ControlLabel>ドットの大きさ</ControlLabel>
-                        <FormControl componentClass="select" placeholder={2}>
+                        <FormControl componentClass="select" placeholder={dotNumber} onChange={(e)=>imageAction.selectDotNumber(e.target.value)}>
                             <option value={2}>2</option>
                             <option value={3}>3</option>
                             <option value={4}>4</option>
@@ -58,13 +62,13 @@ export default class FormView extends Component {
                         {"ドットの大きさを選択してください。" && <HelpBlock>ドットの大きさを選択してください。</HelpBlock>}
                     </FormGroup>
                     カラー１
-                    <ColorPicker />
+                    <ColorPicker color={palette[0]} onChange={imageAction.selectPaletteColor} pickerId={0}/>
                     カラー２
-                    <ColorPicker />
+                    <ColorPicker color={palette[1]} onChange={imageAction.selectPaletteColor} pickerId={1}/>
                     カラー３
-                    <ColorPicker />
+                    <ColorPicker color={palette[2]} onChange={imageAction.selectPaletteColor} pickerId={2}/>
                     カラー４
-                    <ColorPicker />
+                    <ColorPicker color={palette[3]} onChange={imageAction.selectPaletteColor} pickerId={3}/>
                     {"４つの色を選択してください。" && <HelpBlock>４つの色を選択してください。</HelpBlock>}
                 </form>
                 <div className="memo">

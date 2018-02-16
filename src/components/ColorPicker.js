@@ -9,11 +9,6 @@ export default class ColorPicker extends Component{
         super(props);
         this.state = {
             isOpen: false,
-            color: {
-                r:0,
-                g:0,
-                b:0
-            }
         }
     }
 
@@ -29,20 +24,13 @@ export default class ColorPicker extends Component{
         });
     }
 
-    _handleColorChange = (color) => {
-        this.setState({
-            color: color.rgb
-        });
-    }
-
     render(){
-        console.log(this.state.color);
 
-        const {r,g,b} = this.state.color;
+        const { color,onChange,pickerId } = this.props;
 
         const styles = {
             color: {
-                backgroundColor: 'rgb('+r+','+g+','+b+')',
+                backgroundColor: color,
                 width: 36,
                 height: 14,
                 borderRadius: 2
@@ -70,7 +58,7 @@ export default class ColorPicker extends Component{
                     this.state.isOpen ? 
                     <div style={styles.popover}>
                         <div style={styles.cover} onClick={this._handleClosePicker}>
-                            <SwatchesPicker color={this.state.color} onChange={this._handleColorChange} height={550}/>
+                            <SwatchesPicker color={this.state.color} onChange={(color)=>onChange(color.rgb,pickerId)} height={550}/>
                         </div>
                     </div>
                     :null

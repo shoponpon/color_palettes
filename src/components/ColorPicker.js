@@ -56,11 +56,8 @@ export default class ColorPicker extends Component{
                 cursor: 'pointer'
             },
             popover: {
-                position: 'aboslute',
-                zIndex: 2
             },
             cover: {
-                position: 'fixed',
             }
         };
 

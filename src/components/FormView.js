@@ -35,7 +35,7 @@ export default class FormView extends Component {
     render() {
 
         const { imageAction } = this.props;
-        const { palette, dotNumber } = this.props.image;
+        const { inputImage, palette, dotNumber } = this.props.image;
 
         return (
             <div id="forms" >
@@ -71,7 +71,7 @@ export default class FormView extends Component {
                     <ColorPicker color={palette[3]} onChange={imageAction.selectPaletteColor} pickerId={3}/>
                     {"４つの色を選択してください。" && <HelpBlock>４つの色を選択してください。</HelpBlock>}
                 </form>
-                <div className="memo">
+                <div className="submitButton" onClick={()=>imageAction.fetchDotImage(inputImage,dotNumber,palette)}>
                     変換
                 </div>
             </div>

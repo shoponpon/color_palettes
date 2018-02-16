@@ -11,7 +11,7 @@ export default class ColorPalettes extends Component {
     render() {
        
         const { palettes } = this.props.image;
-
+        
         return (
             <div>
                 <div className="title">最近変換されたカラーパレット（クリックで反映）</div>

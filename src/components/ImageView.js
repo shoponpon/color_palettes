@@ -8,18 +8,18 @@ import './ImageView.css';
 export default class ImageView extends Component {
     render() {
 
-        const { image } = this.props;
+        const { inputImage, outputImage } = this.props.image;
 
         return (
             <Tabs className="tabs">
                 <Tab className="tab" eventKey={1} title="変換前">
                     <div id="preview-image" >
-                        <img id="preview-image-tag" src={image.inputImage} />
+                        <img id="preview-image-tag" src={inputImage} />
                     </div>
                 </Tab>
                 <Tab className="tab" eventKey={2} title="変換後">
                     <div id="line-image" >
-                        <img id="line-image-tag" src={image.inputImage} />
+                        <img id="line-image-tag" src={outputImage} />
                     </div>
                 </Tab>
             </Tabs>

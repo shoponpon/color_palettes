@@ -14,14 +14,11 @@ const NavigationBar = (props) => {
           </Navbar.Brand>
         </Navbar.Header>
         <Nav pullRight>
-          <NavItem eventKey={1} href="#">
-            お問い合わせ・バグ報告
-          </NavItem>
           <NavItem eventKey={2} href="#">
-            新規登録
+            イラスト線画抽出器（Comming Soon）
           </NavItem>
-          <NavItem eventKey={2} href="#">
-            ログイン
+          <NavItem eventKey={1} href="https://twitter.com/shopon1201">
+            お問い合わせ・バグ報告(@shopon1201)
           </NavItem>
         </Nav>
       </Navbar>

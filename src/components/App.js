@@ -13,6 +13,7 @@ import NavigationBar from './NavigationBar';
 import ImageView from './ImageView';
 import FormView from './FormView';
 import ColorPalettes from './ColorPalettes';
+import TwitterTimeLine from './TwitterTimeLine';
 
 class App extends Component {
 
@@ -54,6 +55,13 @@ class App extends Component {
           </div>
         </div>
         <ColorPalettes {...this.state} />
+        <div className="two-column-view">
+          <div className="two-column-view-left">
+            <TwitterTimeLine />
+          </div>
+          <div className="two-column-view-right">
+          </div>
+        </div>
       </div>
     );
   }

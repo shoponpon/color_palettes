@@ -16,10 +16,10 @@ const ImageAction = {
         reader.readAsDataURL(file);
     },
 
-    selectDotNumber(number){
+    selectDotNumber(numberString){
         Dispatcher.dispatch({
             type: ImageActionTypes.SELECT_DOT_NUMBER,
-            dotNumber: number
+            dotNumber: parseInt(numberString)
         });
     },
 
@@ -61,6 +61,7 @@ const ImageAction = {
             console.log('A file is undefined.');
             return;
         }
+
         this._loadBinaryImage(binaryImage).then((image)=>{
             //800以下に
             const moreBig = image.width > image.height ? image.width : image.height;
@@ -74,35 +75,34 @@ const ImageAction = {
                 ctx.mozImageSmoothingEnabled = false;
                 ctx.imageSmoothingEnabled = false;
                 ctx.drawImage(image,0,0,canvas.width,canvas.height);
-                this._loadBinaryImage(canvas.toDataURL('jpg')).then((fixed_image)=>{
-                    this._postEndpoint(fixed_image,dotNumber,colors);
-                });
+                this._postEndpoint(canvas.toDataURL('jpg'),dotNumber,colors);
             }else{
-                this._postEndpoint(image,dotNumber,colors);
+                this._postEndpoint(binaryImage,dotNumber,colors);
             }
         });
     },
 
     _postEndpoint(image,dotNumber,colors){
-        axios.post(ENDPOINT,{
-            "binary": this._resizeImage(image,image.width/dotNumber,image.height/dotNumber),
+        console.log({
+            "binary": image,
             "color1": this._rbgCssToCode(colors[0]),
             "color2": this._rbgCssToCode(colors[1]),
             "color3": this._rbgCssToCode(colors[2]),
-            "color4": this._rbgCssToCode(colors[3])
+            "color4": this._rbgCssToCode(colors[3]),
+            "mosaic_num": dotNumber
+        });
+        axios.post(ENDPOINT,{
+            "binary": image,
+            "color1": this._rbgCssToCode(colors[0]),
+            "color2": this._rbgCssToCode(colors[1]),
+            "color3": this._rbgCssToCode(colors[2]),
+            "color4": this._rbgCssToCode(colors[3]),
+            "mosaic_num": dotNumber
         }).then((response)=>{
-            this._loadBinaryImage(response.data.binary).then((image)=>{
-                /*Dispatcher.dispatch({
-                    type: ImageActionTypes.SET_DOT_IMAGE,
-                    outputImage: this._resizeImage(image,image.width*dotNumber,image.height*dotNumber)
-                });
-                const canvas = document.getElementById('dot-image-tag');
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(image,0,0);*/
-                Dispatcher.dispatch({
-                    type: ImageActionTypes.SET_DOT_IMAGE,
-                    outputImage: ""
-                });
+            console.log(response);
+            Dispatcher.dispatch({
+                type: ImageActionTypes.SET_DOT_IMAGE,
+                outputImage: response.data.binary
             });
         }).catch(function(error){
             console.log(error);
@@ -117,16 +117,6 @@ const ImageAction = {
             };
             image.src = binary;
         });
-    },
-
-    _resizeImage(image,width,height){
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = width;
-        canvas.height = height;
-        ctx.drawImage(image,0,0,width,height);
-        console.log(canvas.width,canvas.height);
-        return canvas.toDataURL('png');
     },
 
     _rbgCssToCode(css){

@@ -29,3 +29,7 @@
 .two-column-view-right {
     flex: 4;
 }
+
+.share-buttons {
+    margin: 10px;
+}

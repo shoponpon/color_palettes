@@ -52,6 +52,9 @@ class App extends Component {
           </div>
           <div className="two-column-view-right">
             <FormView {...this.state} />
+            <div className="share-buttons">
+              <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
           </div>
         </div>
         <ColorPalettes {...this.state} />

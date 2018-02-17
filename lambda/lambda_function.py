@@ -7,6 +7,17 @@ import re
 import image_to_dot
 import record_palettes
 
+#平滑化フィルタ
+n8 = np.array([[1, 1, 1],
+               [1, 1, 1],
+               [1, 1, 1]],
+              np.uint8)
+
+n4 = np.array([[0, 1, 0],
+               [1, 1, 1],
+               [0, 1, 0]],
+              np.uint8)
+
 def lambda_handler(event,context):
  
     #validation of inputs
@@ -33,6 +44,9 @@ def lambda_handler(event,context):
     #image processing
     image = load_binary_image(binary)
     
+    #(オプション)平滑化
+    #image = cv2.erode(image, n8, iterations=1)
+
     #resize - to mini
     size = image.shape[:2][::-1]
     image = cv2.resize(image,(int(size[0]/mosaic_num),int(size[1]/mosaic_num)),interpolation=cv2.INTER_NEAREST)
@@ -42,6 +56,8 @@ def lambda_handler(event,context):
 
     #resize - to original
     image = cv2.resize(image,size,interpolation=cv2.INTER_NEAREST)
+
+    #(オプション)グリッチ    
 
     #encode with base64
     _, buffer = cv2.imencode('.png', image)
@@ -94,7 +110,6 @@ def load_binary_image(binary):
     nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
     return cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
-'''
 if __name__=='__main__':
     import sys
     img = cv2.imread(sys.argv[1])
@@ -120,4 +135,3 @@ if __name__=='__main__':
     else:
         print(response['message'])
         print(response['palettes'])
-'''

@@ -7,6 +7,7 @@ import ImageStore from '../stores/ImageStore';
 
 //Actions
 import ImageAction from '../actions/ImageAction';
+import AppAction from '../actions/AppAction';
 
 //Components
 import NavigationBar from './NavigationBar';
@@ -29,7 +30,8 @@ class App extends Component {
       app: AppStore.getState(),
       image: ImageStore.getState(),
       
-      imageAction: ImageAction
+      imageAction: ImageAction,
+      appAction: AppAction
     };
   }
 

@@ -1,6 +1,7 @@
 import Dispatcher from '../Dispatcher'
 import ImageActionTypes from './ImageActionTypes';
 import axios from 'axios';
+import appAction from './AppAction';
 
 const ENDPOINT = "https://p8vscrn97b.execute-api.us-east-2.amazonaws.com/prod/lambda_image_to_dot";
 
@@ -83,6 +84,7 @@ const ImageAction = {
     },
 
     _postEndpoint(image,dotNumber,colors){
+        appAction.changeTab(2);
         console.log({
             "binary": image,
             "color1": this._rbgCssToCode(colors[0]),

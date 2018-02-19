@@ -44,8 +44,12 @@ export default class ColorPicker extends Component{
                 cursor: 'pointer'
             },
             popover: {
+                /*position: 'absolute',
+                zIndex: 2*/
             },
             cover: {
+                /*position: 'fixed',
+                margin: '0 auto'*/
             }
         };
 
@@ -58,7 +62,7 @@ export default class ColorPicker extends Component{
                     this.state.isOpen ? 
                     <div style={styles.popover}>
                         <div style={styles.cover} onClick={this._handleClosePicker}>
-                            <SwatchesPicker color={this.state.color} onChange={(color)=>onChange(color.rgb,pickerId)} height={550}/>
+                            <SwatchesPicker color={this.state.color} onChange={(color)=>onChange(color.rgb,pickerId)} height="100%" width="100%"/>
                         </div>
                     </div>
                     :null

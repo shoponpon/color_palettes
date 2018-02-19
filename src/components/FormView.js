@@ -59,14 +59,12 @@ export default class FormView extends Component {
                         </FormControl>
                         {"ドットの大きさを選択してください。" && <HelpBlock>ドットの大きさを選択してください。</HelpBlock>}
                     </FormGroup>
-                    カラー１
-                    <ColorPicker color={palette[0]} onChange={imageAction.selectPaletteColor} pickerId={0}/>
-                    カラー２
-                    <ColorPicker color={palette[1]} onChange={imageAction.selectPaletteColor} pickerId={1}/>
-                    カラー３
-                    <ColorPicker color={palette[2]} onChange={imageAction.selectPaletteColor} pickerId={2}/>
-                    カラー４
-                    <ColorPicker color={palette[3]} onChange={imageAction.selectPaletteColor} pickerId={3}/>
+                    <div className="">
+                        <ColorPicker color={palette[0]} onChange={imageAction.selectPaletteColor} pickerId={0}/>
+                        <ColorPicker color={palette[1]} onChange={imageAction.selectPaletteColor} pickerId={1}/>
+                        <ColorPicker color={palette[2]} onChange={imageAction.selectPaletteColor} pickerId={2}/>
+                        <ColorPicker color={palette[3]} onChange={imageAction.selectPaletteColor} pickerId={3}/>
+                    </div>
                     {"４つの色を選択してください。" && <HelpBlock>４つの色を選択してください。</HelpBlock>}
                 </form>
                 <div className="submitButton" onClick={()=>imageAction.fetchDotImage(inputImage,dotNumber,palette)}>

@@ -36,8 +36,19 @@ class App extends Component {
   }
 
   componentWillMount(){
-    const { fetchColorPalettes } = this.state.imageAction;
+    //fetch color palettes
+    const { fetchColorPalettes, selectPaletteColorByCssString } = this.state.imageAction;
     fetchColorPalettes();
+
+    //set url colro palettes
+    //http://localhost:3000/index.html?c[0]=rgb(255,255,255)&c[1]=rgb(20,255,25)&c[2]=rgb(25,0,25),
+    const url = new URL(window.location.href);
+    for(let i = 0;i<4;i++){
+      const color = url.searchParams.get("c["+i+"]");
+      if(color){
+        selectPaletteColorByCssString(color,i);
+      }
+    }
   }
 
   render() {

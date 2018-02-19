@@ -32,6 +32,26 @@ const ImageAction = {
         });
     },
 
+    selectPaletteColorByCssString(cssString,pickerId){
+        //validate input
+        if(!cssString.match(/rgb\([1-2]?[0-9]?[0-9],[1-2]?[0-9]?[0-9],[1-2]?[0-9]?[0-9]\)/)){
+            return;
+        }        
+        const colors = cssString.slice(4,-1).split(',');
+        for(let v of colors){
+            const vv = parseInt(v);
+            if(vv < 0 || vv > 255){
+                return;
+            }
+        }
+        
+        Dispatcher.dispatch({
+            type: ImageActionTypes.SELECT_PALETTE_COLOR,
+            id: pickerId,
+            color: cssString
+        });
+    },
+
     copyColorPalettes(id){
         Dispatcher.dispatch({
             type: ImageActionTypes.COPY_PALETTES,

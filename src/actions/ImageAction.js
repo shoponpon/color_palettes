@@ -45,12 +45,10 @@ const ImageAction = {
             'binary':null
         }).then(function(response){
             let palettes = response.data.palettes;
-            console.log(response.data);
             Dispatcher.dispatch({
                 type: ImageActionTypes.SET_COLOR_PALETTES,
                 palettes: palettes
             });
-            console.log(response);
         }).catch(function(error){
             console.log(error);
         });
@@ -85,14 +83,6 @@ const ImageAction = {
 
     _postEndpoint(image,dotNumber,colors){
         appAction.changeTab(2);
-        console.log({
-            "binary": image,
-            "color1": this._rbgCssToCode(colors[0]),
-            "color2": this._rbgCssToCode(colors[1]),
-            "color3": this._rbgCssToCode(colors[2]),
-            "color4": this._rbgCssToCode(colors[3]),
-            "mosaic_num": dotNumber
-        });
         axios.post(ENDPOINT,{
             "binary": image,
             "color1": this._rbgCssToCode(colors[0]),

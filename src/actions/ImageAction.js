@@ -64,7 +64,7 @@ const ImageAction = {
         axios.post(ENDPOINT,{
             'binary':null
         }).then(function(response){
-            let palettes = response.data.palettes;
+            const palettes = response.data.palettes;
             Dispatcher.dispatch({
                 type: ImageActionTypes.SET_COLOR_PALETTES,
                 palettes: palettes
@@ -111,10 +111,10 @@ const ImageAction = {
             "color4": this._rbgCssToCode(colors[3]),
             "mosaic_num": dotNumber
         }).then((response)=>{
-            console.log(response);
             Dispatcher.dispatch({
                 type: ImageActionTypes.SET_DOT_IMAGE,
-                outputImage: response.data.binary
+                outputImage: response.data.binary,
+                palettes: response.data.palettes
             });
         }).catch(function(error){
             console.log(error);

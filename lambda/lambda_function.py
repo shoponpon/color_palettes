@@ -7,7 +7,7 @@ import re
 import image_to_dot
 import record_palettes
 
-#平滑化フィルタ
+#heikatuka
 n8 = np.array([[1, 1, 1],
                [1, 1, 1],
                [1, 1, 1]],
@@ -44,7 +44,7 @@ def lambda_handler(event,context):
     #image processing
     image = load_binary_image(binary)
     
-    #(オプション)平滑化
+    #options glitch
     #image = cv2.erode(image, n8, iterations=1)
 
     #resize - to mini
@@ -110,6 +110,7 @@ def load_binary_image(binary):
     nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
     return cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
+'''
 if __name__=='__main__':
     import sys
     img = cv2.imread(sys.argv[1])
@@ -135,3 +136,4 @@ if __name__=='__main__':
     else:
         print(response['message'])
         print(response['palettes'])
+'''

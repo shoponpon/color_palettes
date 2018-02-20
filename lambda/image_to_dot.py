@@ -2,7 +2,6 @@
 
 import numpy as np
 import cv2
-from PIL import Image
 
 def image2dot(image,colors):
     colors = sorted(colors,key=cal_luminance)
@@ -35,6 +34,7 @@ def colorcode2rgb(code):
 def cal_luminance(rgb):
     return rgb[0]*0.3+rgb[1]*0.6+rgb[2]*0.1
 
+'''
 if __name__ == '__main__':
     import sys
     import time
@@ -48,3 +48,4 @@ if __name__ == '__main__':
     print ("elapsed_time:{0}".format(elapsed_time) + "[sec]")
     cv2.imshow('img',img)
     cv2.waitKey(0)
+'''

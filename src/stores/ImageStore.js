@@ -31,7 +31,9 @@ class ImageStore extends ReduceStore {
                 break;
             case ImageActionTypes.SELECT_PALETTE_COLOR:
                 state.palette[action.id] = action.color;
-                console.log(action);
+                break;
+            case ImageActionTypes.SET_COLOR_PALETTES:
+                state.palettes = action.palettes;
                 break;
             case ImageActionTypes.SET_DOT_IMAGE:
                 state.outputImage = action.outputImage;

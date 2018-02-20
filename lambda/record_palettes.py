@@ -11,7 +11,7 @@ table = dynamoDB.Table("colorpalettes")
 def getColorPalettes():
     try:
         queryData = table.query(
-            KeyConditionExpression = Key("type").eq("palette") & Key("used_at").lte(str(datetime.now())), # 取得するKey情報
+            KeyConditionExpression = Key("type").eq("palette") & Key("used_at").lte(str(datetime.now())),
             ScanIndexForward = False,
             Limit = 10
         )

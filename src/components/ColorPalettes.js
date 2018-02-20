@@ -11,6 +11,7 @@ export default class ColorPalettes extends Component {
     render() {
        
         const { palettes } = this.props.image;
+        console.log(palettes);
         
         return (
             <div>
@@ -20,7 +21,7 @@ export default class ColorPalettes extends Component {
                     {(() => {
                         let list = [];
                         for (let i = 0; i < palettes.length; i++) {
-                            list.push(<ColorPalette className="color-palette" colors={palettes[i]} />)
+                            list.push(<ColorPalette className="color-palette" colors={palettes[i].colors} />)
                         }
                         return (list);
                     })()}

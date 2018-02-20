@@ -67,6 +67,7 @@ class App extends Component {
         <div className="header">
           イラストを減色してカラーパレットを変えるツールです。
         </div>
+        <ColorPalettes {...this.state} />
         <div className="two-column-view">
           <div className="two-column-view-left">
             <ImageView {...this.state} />
@@ -79,7 +80,6 @@ class App extends Component {
             </div>
           </div>
         </div>
-        <ColorPalettes {...this.state} />
         <div className="two-column-view">
           <div className="two-column-view-left">
             <TwitterTimeLine />

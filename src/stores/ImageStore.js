@@ -37,6 +37,7 @@ class ImageStore extends ReduceStore {
                 break;
             case ImageActionTypes.SET_DOT_IMAGE:
                 state.outputImage = action.outputImage;
+                state.palettes = action.palettes;
                 break;
             default:
                 break;

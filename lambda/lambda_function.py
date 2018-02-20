@@ -22,7 +22,7 @@ def lambda_handler(event,context):
  
     #validation of inputs
     if not validateInput(event):
-        palettes = record_palettes.getPalettes()
+        palettes = record_palettes.getColorPalettes()
         return {
             "status": 400,
             "message": "Inputs are invalid.",
@@ -38,8 +38,8 @@ def lambda_handler(event,context):
     mosaic_num= event['mosaic_num']
 
     #store colors to db
-    record_palettes.record_palette(colors)
-    palettes = record_palettes.getPalettes()
+    record_palettes.putColorPalette(colors)
+    palettes = record_palettes.getColorPalettes()
 
     #image processing
     image = load_binary_image(binary)

@@ -1,39 +1,32 @@
-# -*- coding: utf-8 -*-
+# -*- coding :utf-8 -*-
 
-import sqlite3
+import boto3
+import json
+from boto3.dynamodb.conditions import Key, Attr
+from datetime import datetime
 
-db_name = "./database.db"
+dynamoDB = boto3.resource("dynamodb")
+table = dynamoDB.Table("colorpalettes")
 
-def record_palette(colors):
-    conn = sqlite3.connect(db_name)
-    c = conn.cursor()
-    count_query = "select count(*) from color_palettes;"
-    insert_query = "insert into color_palettes ( color1, color2, color3, color4 ) values (\"{0}\",\"{1}\",\"{2}\",\"{3}\");".format(colors[0],colors[1],colors[2],colors[3])
-    delete_query = "delete from color_palettes where created_at in ( select distinct color_palettes.created_at from color_palettes, color_palettes TMP where color_palettes.created_at < TMP.created_at group by color_palettes.created_at having count(*)>=10 );"
+def getColorPalettes():
     try:
-        #insert
-        c.execute(insert_query)
-        #check
-        c.execute(count_query)
-        if c.fetchone()[0] >= 10:
-            c.execute(delete_query)
-    except sqlite3.Error as e:
-        pass
-    conn.commit()
-    conn.close()
+        queryData = table.query(
+            KeyConditionExpression = Key("type").eq("palette") & Key("used_at").lte(str(datetime.now())), # 取得するKey情報
+            ScanIndexForward = False,
+            Limit = 10
+        )
+        return queryData["Items"]
+    except Exception as e:
+        print e
 
-def getPalettes():
-    conn = sqlite3.connect(db_name)
-    c = conn.cursor()
-    palettes = []
+def putColorPalette(colors):
     try:
-        c.execute('select color1, color2, color3, color4 from color_palettes order by color_palettes.created_at desc limit 10;')
-        palettes = c.fetchall()
-    except sqlite3.Error as e:
-        pass
-    conn.close()
-    return palettes
-'''
-if __name__ == '__main__':
-    print(getPalettes())
-'''
+        table.put_item(
+            Item={
+                "type": "palette",
+                "colors": colors,
+                "used_at": str(datetime.now())
+            }
+        )
+    except Exception as e:
+        print e

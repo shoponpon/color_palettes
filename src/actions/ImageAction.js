@@ -43,17 +43,9 @@ const ImageAction = {
     },
 
     setPaletteColors(colors) {
-        console.log(colors)
         Dispatcher.dispatch({
             type: ImageActionTypes.SET_PALETTE_COLORS,
-            palette: colors
-        });
-    },
-
-    copyColorPalettes(id) {
-        Dispatcher.dispatch({
-            type: ImageActionTypes.COPY_PALETTES,
-            id: id
+            palette: colors.concat()
         });
     },
 

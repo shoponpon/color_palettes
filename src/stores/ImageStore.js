@@ -23,9 +23,6 @@ class ImageStore extends ReduceStore {
             case ImageActionTypes.SELECT_IMAGE_FILE:
                 state.inputImage = action.inputImage;
                 break;
-            case ImageActionTypes.COPY_PALETTES:
-                state.palette = state.palettes[action.id];
-                break;
             case ImageActionTypes.SELECT_DOT_NUMBER:
                 state.dotNumber = action.dotNumber;
                 break;

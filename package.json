@@ -10,7 +10,8 @@
     "react-bootstrap": "^0.32.1",
     "react-color": "^2.13.8",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "react-twitter-widgets": "^1.7.1"
   },
   "scripts": {
     "start": "react-scripts start",

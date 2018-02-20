@@ -18,9 +18,7 @@ export default class SnsButtons extends Component {
             query += "c[" + i + "]=" + palette[i].slice(1) + "&";
         }
         query = query.slice(0, -1);
-
-        console.log(palette,'aaa',query);
-
+        
         return (
             <div style={styles.wrap}>
                 <div>使った色をつぶやく</div>

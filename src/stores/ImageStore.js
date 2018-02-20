@@ -42,7 +42,6 @@ class ImageStore extends ReduceStore {
             default:
                 break;
         }
-        console.log(state);
         return Object.assign({},state);
     }
 }

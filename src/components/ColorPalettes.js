@@ -15,9 +15,8 @@ export default class ColorPalettes extends Component {
         
         return (
             <div>
-                <div className="title">最近変換されたカラーパレット（クリックで反映）</div>
+                <div className="title">最近使われたカラーパレット（クリックで反映）</div>
                 <div className="color-palettes">
-                    <div className="line" />
                     {(() => {
                         let list = [];
                         for (let i = 0; i < palettes.length; i++) {

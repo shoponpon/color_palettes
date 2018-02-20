@@ -47,7 +47,7 @@ class App extends Component {
     for(let i = 0;i<4;i++){
       const color = url.searchParams.get("c["+i+"]");
       if(color){
-        console.log(color);
+        //console.log(color);
         selectPaletteColorFromUrl(color,i)
       }
     }

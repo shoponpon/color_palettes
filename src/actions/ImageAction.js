@@ -26,7 +26,6 @@ const ImageAction = {
     },
 
     selectPaletteColor(color, pickerId) {
-        console.log(color);
         Dispatcher.dispatch({
             type: ImageActionTypes.SELECT_PALETTE_COLOR,
             id: pickerId,
@@ -67,7 +66,7 @@ const ImageAction = {
     fetchDotImage(binaryImage, dotNumber, colors) {
         //to mini size
         if (typeof binaryImage === 'undefined') {
-            console.log('A file is undefined.');
+            //console.log('A file is undefined.');
             return;
         }
 
@@ -93,15 +92,15 @@ const ImageAction = {
 
     _postEndpoint(image, dotNumber, colors) {
         appAction.changeTab(2);
-        console.log(colors);
-        console.log({
+        //console.log(colors);
+        /*console.log({
             "binary": image,
             "color1":colors[0],
             "color2":colors[1],
             "color3":colors[2],
             "color4":colors[3],
             "mosaic_num": dotNumber
-        });
+        });*/
         appAction.changeSubmitButtonState(false);
         axios.post(ENDPOINT, {
             "binary": image,

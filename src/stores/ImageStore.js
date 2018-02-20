@@ -13,7 +13,8 @@ class ImageStore extends ReduceStore {
             outputImage: undefined,
             palette:['#000000','#000000','#000000','#000000'],
             palettes:[],
-            dotNumber: 2
+            dotNumber: 2,
+            smoothing: 0
         };
     }
 
@@ -26,6 +27,8 @@ class ImageStore extends ReduceStore {
             case ImageActionTypes.SELECT_DOT_NUMBER:
                 state.dotNumber = action.dotNumber;
                 break;
+            case ImageActionTypes.CHECK_SMOOTHING:                
+                state.smoothing = state.smoothing == 0 ? 1 : 0;
             case ImageActionTypes.SELECT_PALETTE_COLOR:
                 state.palette[action.id] = action.color;
                 break;

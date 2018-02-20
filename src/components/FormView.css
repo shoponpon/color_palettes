@@ -36,3 +36,7 @@
 .submitButton .disable {
     background-color: #aad6ff;
 }
+
+.error-message {
+    color:red;
+}

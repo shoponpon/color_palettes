@@ -7,15 +7,21 @@ const ENDPOINT = "https://p8vscrn97b.execute-api.us-east-2.amazonaws.com/prod/la
 
 const ImageAction = {
     selectImageFile(file) {
-        appAction.changeTab(1);
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            Dispatcher.dispatch({
-                type: ImageActionTypes.SELECT_IMAGE_FILE,
-                inputImage: e.target.result
-            });
+        if (file) {
+            if (file.size <= 4000000) {
+                appAction.changeTab(1);
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    Dispatcher.dispatch({
+                        type: ImageActionTypes.SELECT_IMAGE_FILE,
+                        inputImage: e.target.result
+                    });
+                }
+                reader.readAsDataURL(file);
+            }else{
+                appAction.showValidationError('選択されたファイルが4MBを超えています。');
+            }
         }
-        reader.readAsDataURL(file);
     },
 
     selectDotNumber(numberString) {
@@ -25,19 +31,25 @@ const ImageAction = {
         });
     },
 
+    checkSmoothing(value) {
+        Dispatcher.dispatch({
+            type: ImageActionTypes.CHECK_SMOOTHING
+        });
+    },
+
     selectPaletteColor(color, pickerId) {
         Dispatcher.dispatch({
             type: ImageActionTypes.SELECT_PALETTE_COLOR,
             id: pickerId,
-            color: "#"+("00"+color.r.toString(16)).slice(-2)+("00"+color.g.toString(16)).slice(-2)+("00"+color.b.toString(16)).slice(-2)
+            color: "#" + ("00" + color.r.toString(16)).slice(-2) + ("00" + color.g.toString(16)).slice(-2) + ("00" + color.b.toString(16)).slice(-2)
         });
     },
 
-    selectPaletteColorFromUrl(color,pickerId){
+    selectPaletteColorFromUrl(color, pickerId) {
         Dispatcher.dispatch({
-            type:ImageActionTypes.SELECT_PALETTE_COLOR,
+            type: ImageActionTypes.SELECT_PALETTE_COLOR,
             id: pickerId,
-            color: "#"+color
+            color: "#" + color
         });
     },
 
@@ -63,7 +75,7 @@ const ImageAction = {
         });
     },
 
-    fetchDotImage(binaryImage, dotNumber, colors) {
+    fetchDotImage(binaryImage, dotNumber, colors, smoothing) {
         //to mini size
         if (typeof binaryImage === 'undefined') {
             //console.log('A file is undefined.');
@@ -71,10 +83,10 @@ const ImageAction = {
         }
 
         this._loadBinaryImage(binaryImage).then((image) => {
-            //800以下に
+            //1000px以下に
             const moreBig = image.width > image.height ? image.width : image.height;
-            if (moreBig > 800) {
-                const bias = 800 / moreBig;
+            if (moreBig > 1000) {
+                const bias = 1000 / moreBig;
                 const canvas = document.createElement('canvas');
                 canvas.width = image.width * bias;
                 canvas.height = image.height * bias;
@@ -83,25 +95,16 @@ const ImageAction = {
                 ctx.mozImageSmoothingEnabled = false;
                 ctx.imageSmoothingEnabled = false;
                 ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-                this._postEndpoint(canvas.toDataURL('jpg'), dotNumber, colors);
+                this._postEndpoint(canvas.toDataURL('jpg'), dotNumber, colors, smoothing);
             } else {
-                this._postEndpoint(binaryImage, dotNumber, colors);
+                this._postEndpoint(binaryImage, dotNumber, colors, smoothing);
             }
         });
     },
 
-    _postEndpoint(image, dotNumber, colors) {
+    _postEndpoint(image, dotNumber, colors, smoothing) {
         appAction.changeTab(2);
         this.showLoading();
-        //console.log(colors);
-        /*console.log({
-            "binary": image,
-            "color1":colors[0],
-            "color2":colors[1],
-            "color3":colors[2],
-            "color4":colors[3],
-            "mosaic_num": dotNumber
-        });*/
         appAction.changeSubmitButtonState(false);
         axios.post(ENDPOINT, {
             "binary": image,
@@ -110,9 +113,8 @@ const ImageAction = {
             "color3": colors[2],
             "color4": colors[3],
             "mosaic_num": dotNumber,
-            "smoothing": 1
+            "smoothing": smoothing
         }).then((response) => {
-            console.log(response.data)
             Dispatcher.dispatch({
                 type: ImageActionTypes.SET_DOT_IMAGE,
                 outputImage: response.data.binary,
@@ -135,7 +137,7 @@ const ImageAction = {
         });
     },
 
-    showLoading(){
+    showLoading() {
         Dispatcher.dispatch({
             type: ImageActionTypes.SHOW_LOADING
         });

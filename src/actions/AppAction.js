@@ -13,6 +13,12 @@ const AppAction = {
             type: AppActionTypes.CHANGE_SUBMIT_BUTTON_STATE,
             submitButtonState: state
         });
+    },
+    showValidationError(message){
+        Dispatcher.dispatch({
+            type: AppActionTypes.SHOW_VALIDATION_ERROR,
+            message: message
+        });
     }
 }
 

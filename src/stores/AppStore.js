@@ -1,6 +1,7 @@
 import { ReduceStore } from 'flux/utils';
 import Dispatcher from '../Dispatcher';
 import AppActionTypes from '../actions/AppActionTypes';
+import ImageActionTypes from '../actions/ImageActionTypes';
 
 class AppStore extends ReduceStore {
     constructor() {
@@ -10,7 +11,8 @@ class AppStore extends ReduceStore {
     getInitialState() {
         return {
             activeTabKey: 1,
-            submitButtonState: true
+            submitButtonState: true,
+            validationErrorMessage: undefined
         };
     }
 
@@ -21,6 +23,12 @@ class AppStore extends ReduceStore {
                 break;
             case AppActionTypes.CHANGE_SUBMIT_BUTTON_STATE:
                 state.submitButtonState = action.submitButtonState;
+                break;
+            case AppActionTypes.SHOW_VALIDATION_ERROR:
+                state.validationErrorMessage = action.message;
+                break;
+            case ImageActionTypes.SELECT_IMAGE_FILE:
+                state.validationErrorMessage = undefined;
                 break;
             default:
                 break;

@@ -43,7 +43,7 @@ class ImageStore extends ReduceStore {
                 state.palettes = action.palettes;
                 break;
             case ImageActionTypes.SHOW_LOADING:
-                state.outputImage = "http://localhost:3000/henkanchu.png";
+                state.outputImage = "http://colorpalette-converter.s3-website.us-east-2.amazonaws.com/henkanchu.png";
                 break;
             default:
                 break;

@@ -92,6 +92,7 @@ const ImageAction = {
 
     _postEndpoint(image, dotNumber, colors) {
         appAction.changeTab(2);
+        this.showLoading();
         //console.log(colors);
         /*console.log({
             "binary": image,
@@ -108,8 +109,10 @@ const ImageAction = {
             "color2": colors[1],
             "color3": colors[2],
             "color4": colors[3],
-            "mosaic_num": dotNumber
+            "mosaic_num": dotNumber,
+            "smoothing": 1
         }).then((response) => {
+            console.log(response.data)
             Dispatcher.dispatch({
                 type: ImageActionTypes.SET_DOT_IMAGE,
                 outputImage: response.data.binary,
@@ -129,6 +132,12 @@ const ImageAction = {
                 resolve(image);
             };
             image.src = binary;
+        });
+    },
+
+    showLoading(){
+        Dispatcher.dispatch({
+            type: ImageActionTypes.SHOW_LOADING
         });
     }
 }

@@ -1,7 +1,6 @@
 import { ReduceStore } from 'flux/utils';
 import Dispatcher from '../Dispatcher';
 import ImageActionTypes from '../actions/ImageActionTypes';
-import ImageAction from '../actions/ImageAction';
 
 class ImageStore extends ReduceStore {
     constructor() {
@@ -22,6 +21,7 @@ class ImageStore extends ReduceStore {
         switch (action.type) {
             case ImageActionTypes.SELECT_IMAGE_FILE:
                 state.inputImage = action.inputImage;
+                state.outputImage = undefined;
                 break;
             case ImageActionTypes.SELECT_DOT_NUMBER:
                 state.dotNumber = action.dotNumber;
@@ -38,6 +38,9 @@ class ImageStore extends ReduceStore {
             case ImageActionTypes.SET_DOT_IMAGE:
                 state.outputImage = action.outputImage;
                 state.palettes = action.palettes;
+                break;
+            case ImageActionTypes.SHOW_LOADING:
+                state.outputImage = "http://localhost:3000/henkanchu.png";
                 break;
             default:
                 break;

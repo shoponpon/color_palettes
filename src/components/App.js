@@ -58,7 +58,8 @@ class App extends Component {
       <div className="App">
         <NavigationBar />
         <div className="header">
-          イラストを減色してカラーパレットを変えるツールです。
+          画像をドット風にして色を変えてレトロなゲーム風にできます。
+          <div>現在，β版です．エラー・バグ報告は<a href="https://twitter.com/shopon1201" target="_blank">こちら</a>にリプライでいただけると喜びます．</div>
         </div>
         <ColorPalettes {...this.state} />
         <div className="two-column-view">

@@ -11,7 +11,7 @@ class ImageStore extends ReduceStore {
         return {
             inputImage: undefined,
             outputImage: undefined,
-            palette:['#000000','#000000','#000000','#000000'],
+            palette:['#ffd54f','#3f51b5','#e1bee7','#c8e6c9'],
             palettes:[],
             dotNumber: 2,
             smoothing: 0

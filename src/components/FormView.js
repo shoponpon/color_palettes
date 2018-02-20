@@ -36,7 +36,8 @@ export default class FormView extends Component {
 
         const { imageAction } = this.props;
         const { inputImage, palette, dotNumber } = this.props.image;
-
+        const { submitButtonState } = this.props.app;
+        
         return (
             <div id="forms" >
                 <form className="form-view">
@@ -67,9 +68,21 @@ export default class FormView extends Component {
                     </div>
                     {"４つの色を選択してください。" && <HelpBlock>４つの色を選択してください。</HelpBlock>}
                 </form>
-                <div className="submitButton" onClick={()=>imageAction.fetchDotImage(inputImage,dotNumber,palette)}>
-                    変換
-                </div>
+                {(()=>{
+                    if(submitButtonState){
+                        return (
+                            <div className="submitButton" onClick={()=>imageAction.fetchDotImage(inputImage,dotNumber,palette)}>
+                            変換
+                            </div>
+                        );    
+                    }else{
+                        return (
+                            <div className="submitButton disable" >
+                            変換中...
+                            </div>
+                        );    
+                    }
+                })()}
             </div>
         );
     }

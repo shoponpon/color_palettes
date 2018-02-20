@@ -1,4 +1,4 @@
-import Dispatcher from '../Dispatcher'
+import Dispatcher from '../Dispatcher';
 import ImageActionTypes from './ImageActionTypes';
 import axios from 'axios';
 import appAction from './AppAction';
@@ -74,7 +74,7 @@ const ImageAction = {
 
     fetchDotImage(binaryImage, dotNumber, colors) {
         //to mini size
-        if (typeof binaryImage == 'undefined') {
+        if (typeof binaryImage === 'undefined') {
             console.log('A file is undefined.');
             return;
         }
@@ -110,6 +110,7 @@ const ImageAction = {
             "color4":colors[3],
             "mosaic_num": dotNumber
         });
+        appAction.changeSubmitButtonState(false);
         axios.post(ENDPOINT, {
             "binary": image,
             "color1": colors[0],
@@ -123,8 +124,10 @@ const ImageAction = {
                 outputImage: response.data.binary,
                 palettes: response.data.palettes
             });
+            appAction.changeSubmitButtonState(true);
         }).catch(function (error) {
             console.log(error);
+            appAction.changeSubmitButtonState(true);
         });
     },
 

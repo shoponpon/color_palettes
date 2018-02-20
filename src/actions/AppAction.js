@@ -7,6 +7,12 @@ const AppAction = {
             type: AppActionTypes.CHANGE_TAB,
             activateKey: key
         });
+    },
+    changeSubmitButtonState(state){
+        Dispatcher.dispatch({
+            type: AppActionTypes.CHANGE_SUBMIT_BUTTON_STATE,
+            submitButtonState: state
+        });
     }
 }
 

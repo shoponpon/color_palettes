@@ -11,7 +11,7 @@ export default class NavigationBar extends Component {
       <Navbar style={{ marginBottom: 0 }}>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#">カラーパレットこんばーた（β）</a>
+            <a href="">カラーパレットこんばーた（β）</a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

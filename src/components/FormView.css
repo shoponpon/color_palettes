@@ -32,3 +32,7 @@
 .submitButton:active {
     background-color: #58ACFA;
 }
+
+.submitButton .disable {
+    background-color: #aad6ff;
+}

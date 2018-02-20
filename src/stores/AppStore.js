@@ -9,7 +9,8 @@ class AppStore extends ReduceStore {
 
     getInitialState() {
         return {
-            activeTabKey: 1
+            activeTabKey: 1,
+            submitButtonState: true
         };
     }
 
@@ -17,10 +18,14 @@ class AppStore extends ReduceStore {
         switch (action.type) {
             case AppActionTypes.CHANGE_TAB:
                 state.activeTabKey = action.activateKey;
+                break;
+            case AppActionTypes.CHANGE_SUBMIT_BUTTON_STATE:
+                state.submitButtonState = action.submitButtonState;
+                break;
             default:
-                return state;
-            return Object.assign({},state);
+                break;
         }
+        return Object.assign({},state);
     }
 }
 

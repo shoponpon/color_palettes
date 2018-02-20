@@ -11,7 +11,7 @@ export default class ColorPalettes extends Component {
     render() {
        
         const { palettes } = this.props.image;
-        console.log(palettes);
+        const { setPaletteColors } = this.props.imageAction;
         
         return (
             <div>
@@ -21,7 +21,7 @@ export default class ColorPalettes extends Component {
                     {(() => {
                         let list = [];
                         for (let i = 0; i < palettes.length; i++) {
-                            list.push(<ColorPalette className="color-palette" colors={palettes[i].colors} />)
+                            list.push(<ColorPalette className="color-palette" colors={palettes[i].colors} onClickHanlder={()=>setPaletteColors(palettes[i].colors)}/>)
                         }
                         return (list);
                     })()}

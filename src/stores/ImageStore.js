@@ -12,7 +12,7 @@ class ImageStore extends ReduceStore {
         return {
             inputImage: undefined,
             outputImage: undefined,
-            palette:['rgb(0,0,0)','rgb(0,0,0)','rgb(0,0,0)','rgb(0,0,0)'],
+            palette:['#000000','#000000','#000000','#000000'],
             palettes:[],
             dotNumber: 2
         };
@@ -35,12 +35,16 @@ class ImageStore extends ReduceStore {
             case ImageActionTypes.SET_COLOR_PALETTES:
                 state.palettes = action.palettes;
                 break;
+            case ImageActionTypes.SET_PALETTE_COLORS:
+                state.palette = action.palette;
+                break;
             case ImageActionTypes.SET_DOT_IMAGE:
                 state.outputImage = action.outputImage;
                 break;
             default:
                 break;
         }
+        console.log(state);
         return Object.assign({},state);
     }
 }

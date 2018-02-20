@@ -7,7 +7,7 @@ export default class ColorPalette extends Component{
 
     render(){
 
-        const { colors } = this.props;
+        const { colors, onClickHanlder } = this.props;
 
         const styles = {
             color1:{
@@ -49,7 +49,7 @@ export default class ColorPalette extends Component{
         };
 
         return (
-            <div style={styles.frame}>
+            <div style={styles.frame} onClick={onClickHanlder}>
                 <div style={styles.colors}>
                     <div style={styles.color1}/>
                     <div style={styles.color2}/>

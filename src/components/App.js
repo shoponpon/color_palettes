@@ -15,6 +15,7 @@ import ImageView from './ImageView';
 import FormView from './FormView';
 import ColorPalettes from './ColorPalettes';
 import TwitterTimeLine from './TwitterTimeLine';
+import SnsButtons from './SnsButtons';
 
 class App extends Component {
 
@@ -53,14 +54,6 @@ class App extends Component {
   }
 
   render() {
-
-    const { palette } = this.state.image;
-    let query = "?";
-    for(let i = 0;i<palette.length;i++){
-      query += "c["+i+"]="+palette[i].slice(1)+"&";
-    }
-    query = query.slice(0,-1);
-
     return (
       <div className="App">
         <NavigationBar />
@@ -74,10 +67,7 @@ class App extends Component {
           </div>
           <div className="two-column-view-right">
             <FormView {...this.state} />
-            <div className="share-buttons">
-              <div>使った色をつぶやく</div>
-              <a href="https://twitter.com/intent/tweet?button_hashtag=カラーパレットこんばーた&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-size="large" data-text={"使ったカラーパレット http://colorpalette-converter.s3-website.us-east-2.amazonaws.com/index.html"+query} data-show-count="false">Tweet #button</a>
-            </div>
+            <SnsButtons {...this.state} />
           </div>
         </div>
         <div className="two-column-view">

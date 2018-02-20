@@ -13,7 +13,7 @@ def getColorPalettes():
         queryData = table.query(
             KeyConditionExpression = Key("type").eq("palette") & Key("used_at").lte(str(datetime.now())),
             ScanIndexForward = False,
-            Limit = 10
+            Limit = 11
         )
         return queryData["Items"]
     except Exception as e:
@@ -27,6 +27,14 @@ def putColorPalette(colors):
                 "colors": colors,
                 "used_at": str(datetime.now())
             }
+        )
+    except Exception as e:
+        print e
+
+def delete_one(palette):
+    try:
+        table.delete_item(
+            Key={'type':'palette','used_at':palette['used_at']}
         )
     except Exception as e:
         print e

@@ -20,9 +20,10 @@ n4 = np.array([[0, 1, 0],
 
 def lambda_handler(event,context):
  
+    palettes = record_palettes.getColorPalettes()
+
     #validation of inputs
     if not validateInput(event):
-        palettes = record_palettes.getColorPalettes()
         return {
             "status": 400,
             "message": "Inputs are invalid.",
@@ -38,8 +39,15 @@ def lambda_handler(event,context):
     mosaic_num= event['mosaic_num']
 
     #store colors to db
-    record_palettes.putColorPalette(colors)
-    palettes = record_palettes.getColorPalettes()
+    for palette in palettes[0:-1]:
+        isEqual = (colors[0] in palette['colors']) and (colors[1] in palette['colors']) and (colors[2] in palette['colors']) and (colors[3] in palette['colors'])
+        if isEqual:
+            break
+    if not isEqual:
+        if len(palettes)==11:
+            record_palettes.delete_one(palettes[10])
+            palettes = palettes[0:-1]
+        record_palettes.putColorPalette(colors)
 
     #image processing
     image = load_binary_image(binary)

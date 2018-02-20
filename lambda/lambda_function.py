@@ -7,17 +7,6 @@ import re
 import image_to_dot
 import record_palettes
 
-#heikatuka
-n8 = np.array([[1, 1, 1],
-               [1, 1, 1],
-               [1, 1, 1]],
-              np.uint8)
-
-n4 = np.array([[0, 1, 0],
-               [1, 1, 1],
-               [0, 1, 0]],
-              np.uint8)
-
 def lambda_handler(event,context):
  
     palettes = record_palettes.getColorPalettes()
@@ -37,23 +26,21 @@ def lambda_handler(event,context):
         event['color4']
     ]
     mosaic_num= event['mosaic_num']
+    smoothing= event['smoothing']
 
     #store colors to db
-    for palette in palettes[0:-1]:
-        isEqual = (colors[0] in palette['colors']) and (colors[1] in palette['colors']) and (colors[2] in palette['colors']) and (colors[3] in palette['colors'])
-        if isEqual:
-            break
-    if not isEqual:
-        if len(palettes)==11:
-            record_palettes.delete_one(palettes[10])
-            palettes = palettes[0:-1]
-        record_palettes.putColorPalette(colors)
+    if len(palettes) > 0:
+        if palettes[0]['colors'][0] == colors[0] and palettes[0]['colors'][1] == colors[1] and palettes[0]['colors'][2] == colors[2] and palettes[0]['colors'][3] == colors[3]:
+            pass
+        else:
+            record_palettes.putColorPalette(colors)
 
     #image processing
     image = load_binary_image(binary)
     
-    #options glitch
-    #image = cv2.erode(image, n8, iterations=1)
+    #options smoothing
+    if smoothing == 1:
+        image = cv2.erode(image, np.ones((3,3),np.uint8), iterations=1)
 
     #resize - to mini
     size = image.shape[:2][::-1]

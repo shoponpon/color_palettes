@@ -34,31 +34,19 @@ const ImageAction = {
         });
     },
 
+    selectPaletteColorFromUrl(color,pickerId){
+        Dispatcher.dispatch({
+            type:ImageActionTypes.SELECT_PALETTE_COLOR,
+            id: pickerId,
+            color: "#"+color
+        });
+    },
+
     setPaletteColors(colors) {
         console.log(colors)
         Dispatcher.dispatch({
             type: ImageActionTypes.SET_PALETTE_COLORS,
             palette: colors
-        });
-    },
-
-    selectPaletteColorByCssString(cssString, pickerId) {
-        //validate input
-        if (!cssString.match(/rgb\([1-2]?[0-9]?[0-9],[1-2]?[0-9]?[0-9],[1-2]?[0-9]?[0-9]\)/)) {
-            return;
-        }
-        const colors = cssString.slice(4, -1).split(',');
-        for (let v of colors) {
-            const vv = parseInt(v);
-            if (vv < 0 || vv > 255) {
-                return;
-            }
-        }
-
-        Dispatcher.dispatch({
-            type: ImageActionTypes.SELECT_PALETTE_COLOR,
-            id: pickerId,
-            color: cssString
         });
     },
 

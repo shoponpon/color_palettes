@@ -37,7 +37,7 @@ class App extends Component {
 
   componentWillMount(){
     //fetch color palettes
-    const { fetchColorPalettes, selectPaletteColorByCssString } = this.state.imageAction;
+    const { fetchColorPalettes, selectPaletteColorFromUrl } = this.state.imageAction;
     fetchColorPalettes();
 
     //set url colro palettes
@@ -46,7 +46,8 @@ class App extends Component {
     for(let i = 0;i<4;i++){
       const color = url.searchParams.get("c["+i+"]");
       if(color){
-        selectPaletteColorByCssString(color,i);
+        console.log(color);
+        selectPaletteColorFromUrl(color,i)
       }
     }
   }
@@ -56,8 +57,9 @@ class App extends Component {
     const { palette } = this.state.image;
     let query = "?";
     for(let i = 0;i<palette.length;i++){
-      query += "c["+i+"]="+palette[i]+"&";
+      query += "c["+i+"]="+palette[i].slice(1)+"&";
     }
+    query = query.slice(0,-1);
 
     return (
       <div className="App">

@@ -87,7 +87,7 @@ export default class FormView extends Component {
                 {(()=>{
                     if(submitButtonState){
                         return (
-                            <div className="submitButton" onClick={()=>imageAction.fetchDotImage(inputImage,dotNumber,palette,smoothing)}>
+                            <div className="submitButton" onClick={()=>{}/*imageAction.fetchDotImage(inputImage,dotNumber,palette,smoothing)*/}>
                             変換
                             </div>
                         );    

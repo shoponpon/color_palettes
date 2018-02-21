@@ -60,6 +60,12 @@ class App extends Component {
         <div className="header">
           画像をドット風にして色を変えてレトロなゲーム風にできます。
           <div>現在，β版です．エラー・バグ報告は<a href="https://twitter.com/shopon1201" target="_blank">こちら</a>にリプライでいただけると喜びます．</div>
+          <div className="line" />
+          <div>更新履歴</div>
+            <ul>
+              <li>８色まで色を選択可能に。</li>
+              <li>ディザモードを指定して少ない色でも多段階の階調表現が可能に。</li>
+            </ul>
         </div>
         <ColorPalettes {...this.state} />
         <div className="two-column-view">

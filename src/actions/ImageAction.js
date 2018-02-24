@@ -75,10 +75,68 @@ const ImageAction = {
     setRandomColors() {
         let colors = [];
         for(let i = 0;i<8;i++){
-            colors.push('#'+("00"+parseInt(Math.random()*256).toString(16)).slice(-2)+("00"+parseInt(Math.random()*256).toString(16)).slice(-2)+("00"+parseInt(Math.random()*256).toString(16)).slice(-2))
+            colors.push("#"+("00"+parseInt(Math.random()*256).toString(16)).slice(-2)+("00"+parseInt(Math.random()*256).toString(16)).slice(-2)+("00"+parseInt(Math.random()*256).toString(16)).slice(-2))
         }
         Dispatcher.dispatch({
             type: ImageActionTypes.SET_RANDOM_COLORS,
+            colors: colors
+        });
+    },
+
+    setGradationColors(startColor, endColor, colorNum) {
+
+        let colors = [startColor];
+        colorNum -= 2;
+
+        console.log(startColor)
+
+        console.log({
+            r:parseInt(startColor.slice(1,3),16),
+            g:parseInt(startColor.slice(3,5),16),
+            b:parseInt(startColor.slice(5,7),16)
+        })
+
+        const startColorRGB = {
+            r:parseInt(startColor.slice(1,3),16),
+            g:parseInt(startColor.slice(3,5),16),
+            b:parseInt(startColor.slice(5,7),16)
+        };
+        const endColorRGB = {
+            r:parseInt(endColor.slice(1,3),16),
+            g:parseInt(endColor.slice(3,5),16),
+            b:parseInt(endColor.slice(5,7),16)
+        };
+
+        const intervalR = Math.floor(Math.abs(startColorRGB.r - endColorRGB.r)/colorNum);
+        const intervalG = Math.floor(Math.abs(startColorRGB.g - endColorRGB.g)/colorNum);
+        const intervalB = Math.floor(Math.abs(startColorRGB.b - endColorRGB.b)/colorNum);
+
+        for(let i = 1;i<=colorNum;i++){
+            let r,g,b;
+            if(startColorRGB.r<endColorRGB.r){
+                r = startColorRGB.r + intervalR*i;
+            }else{
+                r = startColorRGB.r - intervalR*i;
+            }
+            if(startColorRGB.g<endColorRGB.g){
+                g = startColorRGB.g + intervalG*i;
+            }else{
+                g = startColorRGB.g - intervalG*i;
+            }
+            if(startColorRGB.b<endColorRGB.b){
+                b = startColorRGB.b + intervalB*i;
+            }else{
+                b = startColorRGB.b - intervalB*i;
+            }
+            colors.push("#"+("00"+r.toString(16)).slice(-2)+("00"+g.toString(16)).slice(-2)+("00"+b.toString(16)).slice(-2))
+        }
+
+        colors.push(endColor);
+
+        console.log(colors);
+
+        Dispatcher.dispatch({
+            type: ImageActionTypes.SET_GRADATION_COLORS,
             colors: colors
         });
     },

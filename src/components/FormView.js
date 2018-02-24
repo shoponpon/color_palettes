@@ -16,6 +16,7 @@ import {
 import ColorPickers from './ColorPickers';
 import Options from './Options';
 import SubmitButton from './SubmitButton';
+import GradationColorPicker from './GradationColorPicker';
 
 function FieldGroup({ id, label, help, ...props }) {
     return (
@@ -82,7 +83,7 @@ export default class FormView extends Component {
                             <ColorPickers {...this.props} />
                         </Tab>
                         <Tab eventKey={1} title="グラデーションから選択" >
-                            <ColorPickers {...this.props} />
+                            <GradationColorPicker {...this.props} />
                         </Tab>
                     </Tabs>
                     <Options {...this.props} />

@@ -104,13 +104,26 @@ def load_binary_image(binary):
     encoded_data = binary.split(',')[1]
     nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
     return cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-'''
+
 if __name__=='__main__':
     import sys
+    import time
     img = cv2.imread(sys.argv[1])
     retval, buffer = cv2.imencode('.png', img)
     input_binary = 'data:image/png;base64,'+base64.b64encode(buffer).decode("UTF-8")
     colors = ['#2D380A', '#61661E', '#92A730', '#CDDD5C','#AA0000']
+    '''
+    colors = [
+        "#076248",
+        "#7b60de",
+        "#a7f539",
+        "#67f890",
+        "#8c7b64",
+        "#109b37",
+        "#a5503d",
+        "#8221c6"
+    ]
+    '''
     event = {
         "binary":input_binary,
         #"binary":None,
@@ -125,8 +138,11 @@ if __name__=='__main__':
         "gamma":1
     }
     context = {}
+    start = time.time()
     response = lambda_handler(event,context)
     if response['status'] == 200:
+        elapsed_time = time.time() - start
+        print ("elapsed_time:{0}".format(elapsed_time) + "[sec]")
         #print(response['palettes'])
         img = load_binary_image(response["binary"])
         cv2.imshow('img',img)
@@ -134,4 +150,3 @@ if __name__=='__main__':
     else:
         print(response['message'])
         #print(response['palettes'])
-'''

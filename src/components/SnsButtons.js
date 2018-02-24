@@ -35,7 +35,7 @@ export default class SnsButtons extends Component {
                 <Hashtag
                     hashtag="カラーパレットこんばーた"
                     url={"http://colorpalette-converter.s3-website.us-east-2.amazonaws.com/index.html"+query}
-                    options={{size:"large",text:"カラーパレットこんばーた(β) http://colorpalette-converter.s3-website.us-east-2.amazonaws.com/index.html"+query}}
+                    options={{size:"large",text:"カラーパレットこんばーた(β) http://colorpalette-converter.s3-website.us-east-2.amazonaws.com"}}
                 />
             </div>
         );

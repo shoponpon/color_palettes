@@ -14,17 +14,19 @@ const Options = (props) => {
 
     return (
         <ul>
+            {/*
             <li>
                 <Checkbox className="options-checkbox" value={smoothing} onChange={(e) => imageAction.checkSmoothing(e.targetValue)}>輝度と対応づけて置換</Checkbox>
             </li>
+            */}
             <li>
                 <Checkbox className="options-checkbox" value={smoothing} onChange={(e) => imageAction.checkSmoothing(e.targetValue)}>平滑化</Checkbox>
             </li>
             <li>
-                <Checkbox className="options-checkbox" value={smoothing} onChange={(e) => imageAction.checkSmoothing(e.targetValue)}>グリッチ（バグ画像風）</Checkbox>
+                <Checkbox className="options-checkbox" value={smoothing} onChange={(e) => imageAction.checkSmoothing(e.targetValue)}>彩度を上げる</Checkbox>
             </li>
             <li>
-                <Checkbox className="options-checkbox" value={smoothing} onChange={(e) => imageAction.checkSmoothing(e.targetValue)}>彩度を上げる</Checkbox>
+                <Checkbox className="options-checkbox" value={smoothing} onChange={(e) => imageAction.checkSmoothing(e.targetValue)} disabled>グリッチ（バグ画像風）(近日実装)</Checkbox>
             </li>
         </ul>
     );

@@ -19,5 +19,11 @@ def api():
   response_obj = lambda_function.lambda_handler(event,{})
   return jsonify(response_obj)
 
+@app.route('/')
+def author():
+  return '''
+    shopon
+    '''
+
 if __name__ == '__main__':
   app.run(debug=True)

@@ -39,7 +39,7 @@ class ImageStore extends ReduceStore {
                 state.palette = action.palette;
                 break;
             case ImageActionTypes.ADD_PALETTE_COLOR:
-                if(state.palette.length<8)state.palette.push(['#000000']);
+                if(state.palette.length<8)state.palette.push('#000000');
                 break;
             case ImageActionTypes.REMOVE_PALETTE_COLOR:
                 if(state.palette.length>4)state.palette = state.palette.slice(0,-1);

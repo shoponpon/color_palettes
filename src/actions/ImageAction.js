@@ -88,8 +88,6 @@ const ImageAction = {
         let colors = [startColor];
         colorNum -= 2;
 
-        console.log(startColor)
-
         console.log({
             r:parseInt(startColor.slice(1,3),16),
             g:parseInt(startColor.slice(3,5),16),

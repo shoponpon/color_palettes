@@ -7,7 +7,7 @@ const ColorPickers = (props) => {
     return (
         <div>
             <div className="colorpickers">
-                <div className="colorpicker-text-button" onClick={imageAction.setRandomColors}>色を選択</div>
+                <div className="colorpicker-text-button" onClick={imageAction.setRandomColors}>ランダムに色を選択</div>
             </div>
         </div>
     );

@@ -3,7 +3,6 @@ import {
     Tabs,
     Tab
 } from 'react-bootstrap';
-import './ImageView.css';
 
 export default class ImageView extends Component {
     render() {

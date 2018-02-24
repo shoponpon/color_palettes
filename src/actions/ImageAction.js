@@ -158,7 +158,7 @@ const ImageAction = {
 
     fetchDotImage(binaryImage, dotNumber, colors, smoothing) {
         //to mini size
-        if (typeof binaryImage === 'undefined') {
+        if (typeof binaryImage === 'undefined' || binaryImage === './image-select.png') {
             //console.log('A file is undefined.');
             return;
         }

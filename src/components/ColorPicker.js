@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    SwatchesPicker
+    SketchPicker
 } from 'react-color';
 
 export default class ColorPicker extends Component {
@@ -27,8 +27,8 @@ export default class ColorPicker extends Component {
     render() {
 
         const { palette } = this.props.image;
-        const {  openedColorpicker } = this.props.app;
-        const { pickerId, appAction } = this.props;
+        const { openedColorpicker } = this.props.app;
+        const { pickerId, appAction, imageAction } = this.props;
 
         const styles = {
             color: {
@@ -45,19 +45,32 @@ export default class ColorPicker extends Component {
                 boxShadow: '0 0 0 1 rgba(0,0,0,.1)',
                 display: 'inline-block',
                 cursor: 'pointer'
+            },
+            popover: {
+                position: 'absolute',
+                zIndex: '2'
+            },
+            cover: {
+                position: 'fixed',
+                top: '0px',
+                right: '0px',
+                bottom: '0px',
+                left: '0px'
             }
         };
 
         return (
-            <div style={styles.switch} onClick={() => {
-                console.log(openedColorpicker);
-                if(openedColorpicker===pickerId){
-                    appAction.closeColorPicker();                
-                }else{
-                    appAction.openColorPicker(pickerId);
-                }
-            }}>
-                <div style={styles.color} />
+            <div>
+                <div style={styles.switch} onClick={() => {
+                    this._handleClickPicker();
+                }}>
+                    <div style={styles.color} />
+                </div>
+                {this.state.isOpen?
+                <div style={styles.popover}>
+                    <div style={styles.cover} onClick={this._handleClosePicker} />
+                    <SketchPicker color={palette[pickerId]} onChange={(color)=>imageAction.selectPaletteColor(color.rgb, pickerId)} />
+                </div> : null}
             </div>
         );
     }

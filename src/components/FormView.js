@@ -8,25 +8,16 @@ import {
     Tab,
     Tabs
 } from 'react-bootstrap';
-import './FormView.css'
 import {
-    SwatchesPicker
+    SwatchesPicker,
+    SketchPicker
 } from 'react-color';
 
 import ColorPickers from './ColorPickers';
+import ColorPicker from './ColorPicker';
 import Options from './Options';
 import SubmitButton from './SubmitButton';
 import GradationColorPicker from './GradationColorPicker';
-
-function FieldGroup({ id, label, help, ...props }) {
-    return (
-        <FormGroup controlId={id}>
-            <ControlLabel>{label}</ControlLabel>
-            <FormControl {...props} />
-            {help && <HelpBlock>{help}</HelpBlock>}
-        </FormGroup>
-    );
-}
 
 export default class FormView extends Component {
 
@@ -43,7 +34,7 @@ export default class FormView extends Component {
 
     render() {
 
-        const { imageAction,appAction } = this.props;
+        const { imageAction, appAction } = this.props;
         const { inputImage, palette, dotNumber, smoothing } = this.props.image;
         const { validationErrorMessage, openedColorpicker } = this.props.app;
 
@@ -59,12 +50,10 @@ export default class FormView extends Component {
                             );
                         }
                     })()}
-                    <FieldGroup
-                        id="formControlFile"
-                        type="file"
-                        label="File"
-                        help="4MB以下のjpgまたはpngを選択してください。"
-                    />
+                    <FormGroup controlId="formControlFile">
+                        <ControlLabel>画像ファイル</ControlLabel>
+                        <FormControl type="file" />
+                    </FormGroup>
                     <FormGroup controlId="formControlNumber">
                         <ControlLabel>ドットの大きさ</ControlLabel>
                         <FormControl componentClass="select" placeholder={dotNumber} onChange={(e) => imageAction.selectDotNumber(e.target.value)}>
@@ -76,16 +65,33 @@ export default class FormView extends Component {
                             <option value={8}>8</option>
                             <option value={10}>10</option>
                         </FormControl>
-                        {"ドットの大きさを選択してください。" && <HelpBlock>ドットの大きさを選択してください。</HelpBlock>}
                     </FormGroup>
+                    <ControlLabel>色の選択(４〜８色)</ControlLabel>
+                    <div className="colorpickers">
+                        {(() => {
+                            let pickers = [];
+                            for (let i = 0; i < 4; i++)pickers.push(<ColorPicker pickerId={i} {...this.props} />);
+                            return pickers;
+                        })()}
+                        {(() => {
+                            let pickers = [];
+                            for (let i = 4; i < palette.length; i++)pickers.push(<ColorPicker pickerId={i} {...this.props} />);
+                            return pickers;
+                        })()}
+                    </div>
+                    <div className="colorpickers">
+                        <div className="colorpicker-button" onClick={imageAction.addPaletteColor} >＋</div>
+                        <div className="colorpicker-button" onClick={imageAction.removePaletteColor} >ー</div>
+                    </div>
                     <Tabs>
-                        <Tab eventKey={0} title="任意の色から選択" >
-                            <ColorPickers {...this.props} />
-                        </Tab>
-                        <Tab eventKey={1} title="グラデーションから選択" >
+                        <Tab eventKey={0} title="グラデーションから選択" >
                             <GradationColorPicker {...this.props} />
                         </Tab>
+                        <Tab eventKey={1} title="ランダムに色を選択" >
+                            <ColorPickers {...this.props} />
+                        </Tab>
                     </Tabs>
+                    <ControlLabel>オプション</ControlLabel>
                     <Options {...this.props} />
                 </form>
                 <SubmitButton {...this.props} />

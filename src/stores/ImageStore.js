@@ -9,8 +9,8 @@ class ImageStore extends ReduceStore {
 
     getInitialState() {
         return {
-            inputImage: undefined,
-            outputImage: undefined,
+            inputImage: "./image-select.png",
+            outputImage: "./image-select2.png",
             palette:['#ffd54f','#3f51b5','#e1bee7','#c8e6c9'],
             palettes:[],
             dotNumber: 2,
@@ -22,7 +22,7 @@ class ImageStore extends ReduceStore {
         switch (action.type) {
             case ImageActionTypes.SELECT_IMAGE_FILE:
                 state.inputImage = action.inputImage;
-                state.outputImage = undefined;
+                state.outputImage = "./image-select2.png";
                 break;
             case ImageActionTypes.SELECT_DOT_NUMBER:
                 state.dotNumber = action.dotNumber;
@@ -55,7 +55,7 @@ class ImageStore extends ReduceStore {
                 state.palettes = action.palettes;
                 break;
             case ImageActionTypes.SHOW_LOADING:
-                state.outputImage = "http://colorpalette-converter.s3-website.us-east-2.amazonaws.com/henkanchu.png";
+                state.outputImage = "./henkanchu.png";
                 break;
             default:
                 break;

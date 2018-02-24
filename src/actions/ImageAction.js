@@ -87,6 +87,7 @@ const ImageAction = {
 
         let colors = [startColor];
         colorNum -= 2;
+        console.log(colorNum)
 
         console.log({
             r:parseInt(startColor.slice(1,3),16),
@@ -105,9 +106,9 @@ const ImageAction = {
             b:parseInt(endColor.slice(5,7),16)
         };
 
-        const intervalR = Math.floor(Math.abs(startColorRGB.r - endColorRGB.r)/colorNum);
-        const intervalG = Math.floor(Math.abs(startColorRGB.g - endColorRGB.g)/colorNum);
-        const intervalB = Math.floor(Math.abs(startColorRGB.b - endColorRGB.b)/colorNum);
+        const intervalR = Math.floor(Math.abs(startColorRGB.r - endColorRGB.r)/(colorNum+1));
+        const intervalG = Math.floor(Math.abs(startColorRGB.g - endColorRGB.g)/(colorNum+1));
+        const intervalB = Math.floor(Math.abs(startColorRGB.b - endColorRGB.b)/(colorNum+1));
 
         for(let i = 1;i<=colorNum;i++){
             let r,g,b;
@@ -130,8 +131,6 @@ const ImageAction = {
         }
 
         colors.push(endColor);
-
-        console.log(colors);
 
         Dispatcher.dispatch({
             type: ImageActionTypes.SET_GRADATION_COLORS,

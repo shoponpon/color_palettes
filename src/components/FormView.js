@@ -4,11 +4,18 @@ import {
     ControlLabel,
     FormControl,
     HelpBlock,
-    Checkbox
+    Checkbox,
+    Tab,
+    Tabs
 } from 'react-bootstrap';
 import './FormView.css'
+import {
+    SwatchesPicker
+} from 'react-color';
 
-import ColorPicker from './ColorPicker';
+import ColorPickers from './ColorPickers';
+import Options from './Options';
+import SubmitButton from './SubmitButton';
 
 function FieldGroup({ id, label, help, ...props }) {
     return (
@@ -35,15 +42,15 @@ export default class FormView extends Component {
 
     render() {
 
-        const { imageAction } = this.props;
+        const { imageAction,appAction } = this.props;
         const { inputImage, palette, dotNumber, smoothing } = this.props.image;
-        const { submitButtonState, validationErrorMessage } = this.props.app;
-        
+        const { validationErrorMessage, openedColorpicker } = this.props.app;
+
         return (
             <div id="forms" >
                 <form className="form-view">
-                    {(()=>{
-                        if(validationErrorMessage){
+                    {(() => {
+                        if (validationErrorMessage) {
                             return (
                                 <div className="error-message">
                                     {validationErrorMessage}
@@ -59,7 +66,7 @@ export default class FormView extends Component {
                     />
                     <FormGroup controlId="formControlNumber">
                         <ControlLabel>ドットの大きさ</ControlLabel>
-                        <FormControl componentClass="select" placeholder={dotNumber} onChange={(e)=>imageAction.selectDotNumber(e.target.value)}>
+                        <FormControl componentClass="select" placeholder={dotNumber} onChange={(e) => imageAction.selectDotNumber(e.target.value)}>
                             <option value={2}>2</option>
                             <option value={3}>3</option>
                             <option value={4}>4</option>
@@ -70,35 +77,17 @@ export default class FormView extends Component {
                         </FormControl>
                         {"ドットの大きさを選択してください。" && <HelpBlock>ドットの大きさを選択してください。</HelpBlock>}
                     </FormGroup>
-                    <FormGroup controlId="formControlCheck">
-                        <ControlLabel>平滑化</ControlLabel>
-                        <Checkbox onChange={(e)=>imageAction.checkSmoothing(e.target.value)} style={{margin:0}}>
-                        </Checkbox>
-                        {"輪郭の荒さを低減します。" && <HelpBlock>輪郭の荒さを低減します。</HelpBlock>}
-                    </FormGroup>
-                    <div className="">
-                        <ColorPicker color={palette[0]} onChange={imageAction.selectPaletteColor} pickerId={0}/>
-                        <ColorPicker color={palette[1]} onChange={imageAction.selectPaletteColor} pickerId={1}/>
-                        <ColorPicker color={palette[2]} onChange={imageAction.selectPaletteColor} pickerId={2}/>
-                        <ColorPicker color={palette[3]} onChange={imageAction.selectPaletteColor} pickerId={3}/>
-                    </div>
-                    {"４つの色を選択してください。" && <HelpBlock>４つの色を選択してください。</HelpBlock>}
+                    <Tabs>
+                        <Tab eventKey={0} title="任意の色から選択" >
+                            <ColorPickers {...this.props} />
+                        </Tab>
+                        <Tab eventKey={1} title="グラデーションから選択" >
+                            <ColorPickers {...this.props} />
+                        </Tab>
+                    </Tabs>
+                    <Options {...this.props} />
                 </form>
-                {(()=>{
-                    if(submitButtonState){
-                        return (
-                            <div className="submitButton" onClick={()=>{}/*imageAction.fetchDotImage(inputImage,dotNumber,palette,smoothing)*/}>
-                            変換
-                            </div>
-                        );    
-                    }else{
-                        return (
-                            <div className="submitButton disable" >
-                            変換中...
-                            </div>
-                        );    
-                    }
-                })()}
+                <SubmitButton {...this.props} />
             </div>
         );
     }

@@ -19,7 +19,7 @@ export default class ImageView extends Component {
                         <img id="preview-image-tag" className="noSmoothing" src={inputImage} alt="変換前画像"/>
                     </div>
                 </Tab>
-                <Tab className="tab" eventKey={2} title="変換後" actived>
+                <Tab className="tab" eventKey={2} title="変換後">
                     <div id="line-image" >
                         {/*ToDo: ろーでぃんぐ画像に差し替え*/}
                         <img id="line-image-tag" className="noSmoothing" src={outputImage} alt="変換後画像"/>

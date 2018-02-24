@@ -5,11 +5,6 @@
     border-radius: 10px;
 }
 
-.colors-form {
-    display: flex;
-    flex-direction: row;
-}
-
 .submitButton {
     margin: 10px;
     padding: 10px;
@@ -39,4 +34,8 @@
 
 .error-message {
     color:red;
+}
+
+.options-checkbox {
+    margin: 0;
 }

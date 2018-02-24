@@ -19,6 +19,17 @@ const AppAction = {
             type: AppActionTypes.SHOW_VALIDATION_ERROR,
             message: message
         });
+    },
+    openColorPicker(pickerId){
+        Dispatcher.dispatch({
+            type: AppActionTypes.OPEN_COLOR_PICKER,
+            openedColorpicker: pickerId
+        });
+    },
+    closeColorPicker(){
+        Dispatcher.dispatch({
+            type: AppActionTypes.CLOSE_COLOR_PICKER
+        });
     }
 }
 

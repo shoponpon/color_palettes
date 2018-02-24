@@ -60,6 +60,18 @@ const ImageAction = {
         });
     },
 
+    addPaletteColor() {
+        Dispatcher.dispatch({
+            type: ImageActionTypes.ADD_PALETTE_COLOR
+        });
+    },
+
+    removePaletteColor() {
+        Dispatcher.dispatch({
+            type: ImageActionTypes.REMOVE_PALETTE_COLOR
+        });
+    },
+
     fetchColorPalettes() {
         //fetch
         axios.post(ENDPOINT, {

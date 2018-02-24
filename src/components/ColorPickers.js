@@ -15,6 +15,11 @@ const ColorPickers = (props) => {
     return (
         <div>
             <div className="colorpickers">
+                <div className="colorpicker-button" onClick={imageAction.addPaletteColor} >＋</div>
+                <div className="colorpicker-button" onClick={imageAction.removePaletteColor} >ー</div>
+                <div className="colorpicker-text-button">ランダム</div>
+            </div>
+            <div className="colorpickers">
                 {(() => {
                     let pickers = [];
                     for (let i = 0; i < 4; i++)pickers.push(<ColorPicker pickerId={i} {...props} />);
@@ -24,9 +29,9 @@ const ColorPickers = (props) => {
             {
                 (() => {
                     //additional colors
-                    if (palette.length >= 5) {
+                    if (palette.length > 4) {
                         let pickers = [];
-                        for (let i = 4; i < 8; i++)pickers.push(<ColorPicker pickerId={i} {...props} />);
+                        for (let i = 4; i < palette.length; i++)pickers.push(<ColorPicker pickerId={i} {...props} />);
                         return pickers;
                     }
                 })()
@@ -39,11 +44,6 @@ const ColorPickers = (props) => {
                         );
                     }
                 })()}
-            </div>
-            <div className="colorpickers">
-                <button className="colorpicker-button">＋</button>
-                <button className="colorpicker-button">ー</button>
-                <button className="colorpicker-text-button">ランダム</button>
             </div>
         </div>
     );

@@ -4,7 +4,8 @@ import axios from 'axios';
 import appAction from './AppAction';
 
 //const ENDPOINT = "https://p8vscrn97b.execute-api.us-east-2.amazonaws.com/prod/lambda_image_to_dot_dev";
-const ENDPOINT = "https://fc1p9ww3wg.execute-api.us-east-2.amazonaws.com/dev/";
+//const ENDPOINT = "https://fc1p9ww3wg.execute-api.us-east-2.amazonaws.com/dev/";
+const ENDPOINT = "http://localhost:5000/pic2dot"
 
 const ImageAction = {
     selectImageFile(file) {
@@ -19,7 +20,7 @@ const ImageAction = {
                     });
                 }
                 reader.readAsDataURL(file);
-            }else{
+            } else {
                 appAction.showValidationError('選択されたファイルが4MBを超えています。');
             }
         }
@@ -87,8 +88,8 @@ const ImageAction = {
 
     setRandomColors() {
         let colors = [];
-        for(let i = 0;i<8;i++){
-            colors.push("#"+("00"+parseInt(Math.random()*256).toString(16)).slice(-2)+("00"+parseInt(Math.random()*256).toString(16)).slice(-2)+("00"+parseInt(Math.random()*256).toString(16)).slice(-2))
+        for (let i = 0; i < 8; i++) {
+            colors.push("#" + ("00" + parseInt(Math.random() * 256).toString(16)).slice(-2) + ("00" + parseInt(Math.random() * 256).toString(16)).slice(-2) + ("00" + parseInt(Math.random() * 256).toString(16)).slice(-2))
         }
         Dispatcher.dispatch({
             type: ImageActionTypes.SET_RANDOM_COLORS,
@@ -103,44 +104,44 @@ const ImageAction = {
         console.log(colorNum)
 
         console.log({
-            r:parseInt(startColor.slice(1,3),16),
-            g:parseInt(startColor.slice(3,5),16),
-            b:parseInt(startColor.slice(5,7),16)
+            r: parseInt(startColor.slice(1, 3), 16),
+            g: parseInt(startColor.slice(3, 5), 16),
+            b: parseInt(startColor.slice(5, 7), 16)
         })
 
         const startColorRGB = {
-            r:parseInt(startColor.slice(1,3),16),
-            g:parseInt(startColor.slice(3,5),16),
-            b:parseInt(startColor.slice(5,7),16)
+            r: parseInt(startColor.slice(1, 3), 16),
+            g: parseInt(startColor.slice(3, 5), 16),
+            b: parseInt(startColor.slice(5, 7), 16)
         };
         const endColorRGB = {
-            r:parseInt(endColor.slice(1,3),16),
-            g:parseInt(endColor.slice(3,5),16),
-            b:parseInt(endColor.slice(5,7),16)
+            r: parseInt(endColor.slice(1, 3), 16),
+            g: parseInt(endColor.slice(3, 5), 16),
+            b: parseInt(endColor.slice(5, 7), 16)
         };
 
-        const intervalR = Math.floor(Math.abs(startColorRGB.r - endColorRGB.r)/(colorNum+1));
-        const intervalG = Math.floor(Math.abs(startColorRGB.g - endColorRGB.g)/(colorNum+1));
-        const intervalB = Math.floor(Math.abs(startColorRGB.b - endColorRGB.b)/(colorNum+1));
+        const intervalR = Math.floor(Math.abs(startColorRGB.r - endColorRGB.r) / (colorNum + 1));
+        const intervalG = Math.floor(Math.abs(startColorRGB.g - endColorRGB.g) / (colorNum + 1));
+        const intervalB = Math.floor(Math.abs(startColorRGB.b - endColorRGB.b) / (colorNum + 1));
 
-        for(let i = 1;i<=colorNum;i++){
-            let r,g,b;
-            if(startColorRGB.r<endColorRGB.r){
-                r = startColorRGB.r + intervalR*i;
-            }else{
-                r = startColorRGB.r - intervalR*i;
+        for (let i = 1; i <= colorNum; i++) {
+            let r, g, b;
+            if (startColorRGB.r < endColorRGB.r) {
+                r = startColorRGB.r + intervalR * i;
+            } else {
+                r = startColorRGB.r - intervalR * i;
             }
-            if(startColorRGB.g<endColorRGB.g){
-                g = startColorRGB.g + intervalG*i;
-            }else{
-                g = startColorRGB.g - intervalG*i;
+            if (startColorRGB.g < endColorRGB.g) {
+                g = startColorRGB.g + intervalG * i;
+            } else {
+                g = startColorRGB.g - intervalG * i;
             }
-            if(startColorRGB.b<endColorRGB.b){
-                b = startColorRGB.b + intervalB*i;
-            }else{
-                b = startColorRGB.b - intervalB*i;
+            if (startColorRGB.b < endColorRGB.b) {
+                b = startColorRGB.b + intervalB * i;
+            } else {
+                b = startColorRGB.b - intervalB * i;
             }
-            colors.push("#"+("00"+r.toString(16)).slice(-2)+("00"+g.toString(16)).slice(-2)+("00"+b.toString(16)).slice(-2))
+            colors.push("#" + ("00" + r.toString(16)).slice(-2) + ("00" + g.toString(16)).slice(-2) + ("00" + b.toString(16)).slice(-2))
         }
 
         colors.push(endColor);
@@ -197,21 +198,22 @@ const ImageAction = {
         appAction.changeTab(2);
         this.showLoading();
         appAction.changeSubmitButtonState(false);
-        console.log({
-            "binary": image,
-            "colors": colors,
-            "mosaic_num": dotNumber,
-            "smoothing": smoothing,
-            "contrast": contrast,
-            "gamma": gamma
-        })
+
+        const params = new URLSearchParams();
+        params.append('binary', image);
+        params.append('colors', colors);
+        params.append('mosaic_num', dotNumber);
+        params.append('smoothing', smoothing);
+        params.append('contrast', contrast);
+        params.append('gamma', gamma);
+        /*
         axios.post(ENDPOINT, {
             "binary": image,
             "colors": colors,
             "mosaic_num": dotNumber,
             "smoothing": smoothing,
             "contrast": contrast,
-            "gamma": gamma
+            "gamma": gamma   
         }).then((response) => {
             Dispatcher.dispatch({
                 type: ImageActionTypes.SET_DOT_IMAGE,
@@ -224,6 +226,23 @@ const ImageAction = {
             console.log(error);
             appAction.changeSubmitButtonState(true);
         });
+        */
+        axios.defaults.headers.common['Access-Control-Request-Headers'] = null
+        axios.defaults.headers.common['Access-Control-Request-Method'] = null
+        axios.post(ENDPOINT, params, {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+        }).then((response) => {
+            Dispatcher.dispatch({
+                type: ImageActionTypes.SET_DOT_IMAGE,
+                outputImage: response.data.binary,
+                palettes: response.data.palettes
+            });
+            appAction.changeSubmitButtonState(true);
+        }).catch(function (error) {
+            appAction.changeSubmitButtonState(true);
+        });
+        
     },
 
     _loadBinaryImage(binary) {

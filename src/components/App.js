@@ -80,7 +80,7 @@ class App extends Component {
         </div>
         <div className="two-column-view">
           <div className="two-column-view-left">
-            <ColorPalettes {...this.state} />
+            {/*<ColorPalettes {...this.state} />*/}
           </div>
           <div className="two-column-view-right">
             <TwitterTimeLine />

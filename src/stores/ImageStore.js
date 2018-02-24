@@ -15,7 +15,7 @@ class ImageStore extends ReduceStore {
             palettes:[],
             dotNumber: 2,
             smoothing: 0,
-            constrast: 0,
+            contrast: 0,
             gamma: 0
         };
     }
@@ -33,7 +33,7 @@ class ImageStore extends ReduceStore {
                 state.smoothing = state.smoothing == 0 ? 1 : 0;
                 break;
             case ImageActionTypes.CHECK_CONTRAST:                
-                state.constrast = state.constrast == 0 ? 1 : 0;
+                state.contrast = state.contrast == 0 ? 1 : 0;
                 break;
             case ImageActionTypes.CHECK_GAMMA:                
                 state.gamma = state.gamma == 0 ? 1 : 0;

@@ -3,7 +3,8 @@ import ImageActionTypes from './ImageActionTypes';
 import axios from 'axios';
 import appAction from './AppAction';
 
-const ENDPOINT = "https://p8vscrn97b.execute-api.us-east-2.amazonaws.com/prod/lambda_image_to_dot";
+//const ENDPOINT = "https://p8vscrn97b.execute-api.us-east-2.amazonaws.com/prod/lambda_image_to_dot_dev";
+const ENDPOINT = "https://fc1p9ww3wg.execute-api.us-east-2.amazonaws.com/dev/";
 
 const ImageAction = {
     selectImageFile(file) {
@@ -185,7 +186,7 @@ const ImageAction = {
                 ctx.mozImageSmoothingEnabled = false;
                 ctx.imageSmoothingEnabled = false;
                 ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-                this._postEndpoint(canvas.toDataURL('jpg'), dotNumber, colors, smoothing);
+                this._postEndpoint(canvas.toDataURL('jpg'), dotNumber, colors, smoothing, contrast, gamma);
             } else {
                 this._postEndpoint(binaryImage, dotNumber, colors, smoothing, contrast, gamma);
             }
@@ -196,6 +197,14 @@ const ImageAction = {
         appAction.changeTab(2);
         this.showLoading();
         appAction.changeSubmitButtonState(false);
+        console.log({
+            "binary": image,
+            "colors": colors,
+            "mosaic_num": dotNumber,
+            "smoothing": smoothing,
+            "contrast": contrast,
+            "gamma": gamma
+        })
         axios.post(ENDPOINT, {
             "binary": image,
             "colors": colors,
@@ -209,6 +218,7 @@ const ImageAction = {
                 outputImage: response.data.binary,
                 palettes: response.data.palettes
             });
+            console.log(response)
             appAction.changeSubmitButtonState(true);
         }).catch(function (error) {
             console.log(error);

@@ -35,7 +35,7 @@ export default class FormView extends Component {
     render() {
 
         const { imageAction, appAction } = this.props;
-        const { inputImage, palette, dotNumber, smoothing } = this.props.image;
+        const { inputImage, palette, dotNumber } = this.props.image;
         const { validationErrorMessage, openedColorpicker } = this.props.app;
 
         return (

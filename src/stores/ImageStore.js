@@ -14,7 +14,9 @@ class ImageStore extends ReduceStore {
             palette:['#ffd54f','#3f51b5','#e1bee7','#c8e6c9'],
             palettes:[],
             dotNumber: 2,
-            smoothing: 0
+            smoothing: 0,
+            constrast: 0,
+            gamma: 0
         };
     }
 
@@ -29,6 +31,13 @@ class ImageStore extends ReduceStore {
                 break;
             case ImageActionTypes.CHECK_SMOOTHING:                
                 state.smoothing = state.smoothing == 0 ? 1 : 0;
+                break;
+            case ImageActionTypes.CHECK_CONTRAST:                
+                state.constrast = state.constrast == 0 ? 1 : 0;
+                break;
+            case ImageActionTypes.CHECK_GAMMA:                
+                state.gamma = state.gamma == 0 ? 1 : 0;
+                break;
             case ImageActionTypes.SELECT_PALETTE_COLOR:
                 state.palette[action.id] = action.color;
                 break;

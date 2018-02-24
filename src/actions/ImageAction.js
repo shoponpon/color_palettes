@@ -37,6 +37,18 @@ const ImageAction = {
         });
     },
 
+    checkContrast(value) {
+        Dispatcher.dispatch({
+            type: ImageActionTypes.CHECK_CONTRAST
+        });
+    },
+
+    checkGamma(value) {
+        Dispatcher.dispatch({
+            type: ImageActionTypes.CHECK_GAMMA
+        });
+    },
+
     selectPaletteColor(color, pickerId) {
         Dispatcher.dispatch({
             type: ImageActionTypes.SELECT_PALETTE_COLOR,
@@ -153,7 +165,7 @@ const ImageAction = {
         });
     },
 
-    fetchDotImage(binaryImage, dotNumber, colors, smoothing) {
+    fetchDotImage(binaryImage, dotNumber, colors, smoothing, contrast, gamma) {
         //to mini size
         if (typeof binaryImage === 'undefined' || binaryImage === './image-select.png') {
             //console.log('A file is undefined.');
@@ -175,12 +187,12 @@ const ImageAction = {
                 ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
                 this._postEndpoint(canvas.toDataURL('jpg'), dotNumber, colors, smoothing);
             } else {
-                this._postEndpoint(binaryImage, dotNumber, colors, smoothing);
+                this._postEndpoint(binaryImage, dotNumber, colors, smoothing, contrast, gamma);
             }
         });
     },
 
-    _postEndpoint(image, dotNumber, colors, smoothing) {
+    _postEndpoint(image, dotNumber, colors, smoothing, contrast, gamma) {
         appAction.changeTab(2);
         this.showLoading();
         appAction.changeSubmitButtonState(false);
@@ -188,7 +200,9 @@ const ImageAction = {
             "binary": image,
             "colors": colors,
             "mosaic_num": dotNumber,
-            "smoothing": smoothing
+            "smoothing": smoothing,
+            "contrast": contrast,
+            "gamma": gamma
         }).then((response) => {
             Dispatcher.dispatch({
                 type: ImageActionTypes.SET_DOT_IMAGE,

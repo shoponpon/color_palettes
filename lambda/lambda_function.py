@@ -104,7 +104,7 @@ def load_binary_image(binary):
     encoded_data = binary.split(',')[1]
     nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
     return cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-
+'''
 if __name__=='__main__':
     import sys
     import time
@@ -112,7 +112,7 @@ if __name__=='__main__':
     retval, buffer = cv2.imencode('.png', img)
     input_binary = 'data:image/png;base64,'+base64.b64encode(buffer).decode("UTF-8")
     colors = ['#2D380A', '#61661E', '#92A730', '#CDDD5C','#AA0000']
-    '''
+    
     colors = [
         "#076248",
         "#7b60de",
@@ -123,7 +123,7 @@ if __name__=='__main__':
         "#a5503d",
         "#8221c6"
     ]
-    '''
+    
     event = {
         "binary":input_binary,
         #"binary":None,
@@ -150,3 +150,4 @@ if __name__=='__main__':
     else:
         print(response['message'])
         #print(response['palettes'])
+'''

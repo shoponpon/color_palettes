@@ -47,7 +47,7 @@ export default class ColorPicker extends Component {
                 cursor: 'pointer'
             },
             popover: {
-                position: 'absolute',
+                position: window.innerWidth >= 768 ? 'absolute':'static',
                 zIndex: '2'
             },
             cover: {

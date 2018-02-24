@@ -72,6 +72,17 @@ const ImageAction = {
         });
     },
 
+    setRandomColors() {
+        let colors = [];
+        for(let i = 0;i<8;i++){
+            colors.push('#'+("00"+parseInt(Math.random()*256).toString(16)).slice(-2)+("00"+parseInt(Math.random()*256).toString(16)).slice(-2)+("00"+parseInt(Math.random()*256).toString(16)).slice(-2))
+        }
+        Dispatcher.dispatch({
+            type: ImageActionTypes.SET_RANDOM_COLORS,
+            colors: colors
+        });
+    },
+
     fetchColorPalettes() {
         //fetch
         axios.post(ENDPOINT, {

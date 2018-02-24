@@ -44,6 +44,9 @@ class ImageStore extends ReduceStore {
             case ImageActionTypes.REMOVE_PALETTE_COLOR:
                 if(state.palette.length>4)state.palette = state.palette.slice(0,-1);
                 break;
+            case ImageActionTypes.SET_RANDOM_COLORS:
+                state.palette = action.colors.slice(0,state.palette.length);
+                break;
             case ImageActionTypes.SET_DOT_IMAGE:
                 state.outputImage = action.outputImage;
                 state.palettes = action.palettes;

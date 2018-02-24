@@ -17,7 +17,7 @@ const ColorPickers = (props) => {
             <div className="colorpickers">
                 <div className="colorpicker-button" onClick={imageAction.addPaletteColor} >＋</div>
                 <div className="colorpicker-button" onClick={imageAction.removePaletteColor} >ー</div>
-                <div className="colorpicker-text-button">ランダム</div>
+                <div className="colorpicker-text-button" onClick={imageAction.setRandomColors}>ランダム</div>
             </div>
             <div className="colorpickers">
                 {(() => {

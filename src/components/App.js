@@ -71,6 +71,7 @@ class App extends Component {
               <ul>
                 <li>・UIを調整</li>
                 <li>・８色まで色を選択可能に</li>
+                <li>・「彩度を上げる」オプションを追加</li>
               </ul>
             </div>
             <FormView {...this.state} />

@@ -9,8 +9,8 @@ class ImageStore extends ReduceStore {
 
     getInitialState() {
         return {
-            inputImage: "%PUBLIC_URL%/static/image-select.png",
-            outputImage: "%PUBLIC_URL%/static/image-select2.png",
+            inputImage: "/static/image-select.png",
+            outputImage: "/static/image-select2.png",
             palette:['#ffd54f','#3f51b5','#e1bee7','#c8e6c9'],
             palettes:[],
             dotNumber: 2,
@@ -24,7 +24,7 @@ class ImageStore extends ReduceStore {
         switch (action.type) {
             case ImageActionTypes.SELECT_IMAGE_FILE:
                 state.inputImage = action.inputImage;
-                state.outputImage = "%PUBLIC_URL%/static/image-select2.png";
+                state.outputImage = "/static/image-select2.png";
                 break;
             case ImageActionTypes.SELECT_DOT_NUMBER:
                 state.dotNumber = action.dotNumber;
@@ -64,7 +64,7 @@ class ImageStore extends ReduceStore {
                 state.palettes = action.palettes;
                 break;
             case ImageActionTypes.SHOW_LOADING:
-                state.outputImage = "%PUBLIC_URL%/static/henkanchu.png";
+                state.outputImage = "/static/henkanchu.png";
                 break;
             default:
                 break;

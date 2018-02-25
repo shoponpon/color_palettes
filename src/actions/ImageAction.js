@@ -228,8 +228,8 @@ const ImageAction = {
             appAction.changeSubmitButtonState(true);
         });
         */
-        axios.defaults.headers.common['Access-Control-Request-Headers'] = null
-        axios.defaults.headers.common['Access-Control-Request-Method'] = null
+        /*axios.defaults.headers.common['Access-Control-Request-Headers'] = null
+        axios.defaults.headers.common['Access-Control-Request-Method'] = null*/
         axios.post(ENDPOINT, params, {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Accept': 'application/json'

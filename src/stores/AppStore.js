@@ -12,7 +12,8 @@ class AppStore extends ReduceStore {
         return {
             activeTabKey: 1,
             submitButtonState: true,
-            validationErrorMessage: undefined
+            validationErrorMessage: undefined,
+            openedColorpicker: -1
         };
     }
 
@@ -29,6 +30,12 @@ class AppStore extends ReduceStore {
                 break;
             case ImageActionTypes.SELECT_IMAGE_FILE:
                 state.validationErrorMessage = undefined;
+                break;
+            case AppActionTypes.OPEN_COLOR_PICKER:
+                state.openedColorpicker = action.openedColorpicker
+                break;
+            case AppActionTypes.CLOSE_COLOR_PICKER:
+                state.openedColorpicker = -1;
                 break;
             default:
                 break;

@@ -2,6 +2,9 @@ import { ReduceStore } from 'flux/utils';
 import Dispatcher from '../Dispatcher';
 import ImageActionTypes from '../actions/ImageActionTypes';
 
+//const path = "/static/"
+const path = document.domain == 'localhost' ? "" : "/static/";
+
 class ImageStore extends ReduceStore {
     constructor() {
         super(Dispatcher);
@@ -9,12 +12,14 @@ class ImageStore extends ReduceStore {
 
     getInitialState() {
         return {
-            inputImage: undefined,
-            outputImage: undefined,
+            inputImage: path+"image-select.png",
+            outputImage: path+"image-select2.png",
             palette:['#ffd54f','#3f51b5','#e1bee7','#c8e6c9'],
             palettes:[],
             dotNumber: 2,
-            smoothing: 0
+            smoothing: 0,
+            contrast: 0,
+            gamma: 0
         };
     }
 
@@ -22,13 +27,20 @@ class ImageStore extends ReduceStore {
         switch (action.type) {
             case ImageActionTypes.SELECT_IMAGE_FILE:
                 state.inputImage = action.inputImage;
-                state.outputImage = undefined;
+                state.outputImage = path+"image-select2.png";
                 break;
             case ImageActionTypes.SELECT_DOT_NUMBER:
                 state.dotNumber = action.dotNumber;
                 break;
             case ImageActionTypes.CHECK_SMOOTHING:                
                 state.smoothing = state.smoothing == 0 ? 1 : 0;
+                break;
+            case ImageActionTypes.CHECK_CONTRAST:                
+                state.contrast = state.contrast == 0 ? 1 : 0;
+                break;
+            case ImageActionTypes.CHECK_GAMMA:                
+                state.gamma = state.gamma == 0 ? 1 : 0;
+                break;
             case ImageActionTypes.SELECT_PALETTE_COLOR:
                 state.palette[action.id] = action.color;
                 break;
@@ -38,12 +50,24 @@ class ImageStore extends ReduceStore {
             case ImageActionTypes.SET_PALETTE_COLORS:
                 state.palette = action.palette;
                 break;
+            case ImageActionTypes.ADD_PALETTE_COLOR:
+                if(state.palette.length<8)state.palette.push('#000000');
+                break;
+            case ImageActionTypes.REMOVE_PALETTE_COLOR:
+                if(state.palette.length>4)state.palette = state.palette.slice(0,-1);
+                break;
+            case ImageActionTypes.SET_RANDOM_COLORS:
+                state.palette = action.colors.slice(0,state.palette.length);
+                break;
+            case ImageActionTypes.SET_GRADATION_COLORS:
+                state.palette = action.colors;
+                break;
             case ImageActionTypes.SET_DOT_IMAGE:
                 state.outputImage = action.outputImage;
                 state.palettes = action.palettes;
                 break;
             case ImageActionTypes.SHOW_LOADING:
-                state.outputImage = "http://colorpalette-converter.s3-website.us-east-2.amazonaws.com/henkanchu.png";
+                state.outputImage = path+"henkanchu.png";
                 break;
             default:
                 break;

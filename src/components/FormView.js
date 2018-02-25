@@ -4,21 +4,20 @@ import {
     ControlLabel,
     FormControl,
     HelpBlock,
-    Checkbox
+    Checkbox,
+    Tab,
+    Tabs
 } from 'react-bootstrap';
-import './FormView.css'
+import {
+    SwatchesPicker,
+    SketchPicker
+} from 'react-color';
 
+import ColorPickers from './ColorPickers';
 import ColorPicker from './ColorPicker';
-
-function FieldGroup({ id, label, help, ...props }) {
-    return (
-        <FormGroup controlId={id}>
-            <ControlLabel>{label}</ControlLabel>
-            <FormControl {...props} />
-            {help && <HelpBlock>{help}</HelpBlock>}
-        </FormGroup>
-    );
-}
+import Options from './Options';
+import SubmitButton from './SubmitButton';
+import GradationColorPicker from './GradationColorPicker';
 
 export default class FormView extends Component {
 
@@ -35,15 +34,15 @@ export default class FormView extends Component {
 
     render() {
 
-        const { imageAction } = this.props;
-        const { inputImage, palette, dotNumber, smoothing } = this.props.image;
-        const { submitButtonState, validationErrorMessage } = this.props.app;
-        
+        const { imageAction, appAction } = this.props;
+        const { inputImage, palette, dotNumber } = this.props.image;
+        const { validationErrorMessage, openedColorpicker } = this.props.app;
+
         return (
             <div id="forms" >
                 <form className="form-view">
-                    {(()=>{
-                        if(validationErrorMessage){
+                    {(() => {
+                        if (validationErrorMessage) {
                             return (
                                 <div className="error-message">
                                     {validationErrorMessage}
@@ -51,15 +50,13 @@ export default class FormView extends Component {
                             );
                         }
                     })()}
-                    <FieldGroup
-                        id="formControlFile"
-                        type="file"
-                        label="File"
-                        help="4MB以下のjpgまたはpngを選択してください。"
-                    />
+                    <FormGroup controlId="formControlFile">
+                        <ControlLabel>画像ファイル</ControlLabel>
+                        <FormControl type="file" />
+                    </FormGroup>
                     <FormGroup controlId="formControlNumber">
                         <ControlLabel>ドットの大きさ</ControlLabel>
-                        <FormControl componentClass="select" placeholder={dotNumber} onChange={(e)=>imageAction.selectDotNumber(e.target.value)}>
+                        <FormControl componentClass="select" placeholder={dotNumber} onChange={(e) => imageAction.selectDotNumber(e.target.value)}>
                             <option value={2}>2</option>
                             <option value={3}>3</option>
                             <option value={4}>4</option>
@@ -68,37 +65,36 @@ export default class FormView extends Component {
                             <option value={8}>8</option>
                             <option value={10}>10</option>
                         </FormControl>
-                        {"ドットの大きさを選択してください。" && <HelpBlock>ドットの大きさを選択してください。</HelpBlock>}
                     </FormGroup>
-                    <FormGroup controlId="formControlCheck">
-                        <ControlLabel>平滑化</ControlLabel>
-                        <Checkbox onChange={(e)=>imageAction.checkSmoothing(e.target.value)} style={{margin:0}}>
-                        </Checkbox>
-                        {"輪郭の荒さを低減します。" && <HelpBlock>輪郭の荒さを低減します。</HelpBlock>}
-                    </FormGroup>
-                    <div className="">
-                        <ColorPicker color={palette[0]} onChange={imageAction.selectPaletteColor} pickerId={0}/>
-                        <ColorPicker color={palette[1]} onChange={imageAction.selectPaletteColor} pickerId={1}/>
-                        <ColorPicker color={palette[2]} onChange={imageAction.selectPaletteColor} pickerId={2}/>
-                        <ColorPicker color={palette[3]} onChange={imageAction.selectPaletteColor} pickerId={3}/>
+                    <ControlLabel>色の選択(４〜８色)</ControlLabel>
+                    <div className="colorpickers">
+                        {(() => {
+                            let pickers = [];
+                            for (let i = 0; i < 4; i++)pickers.push(<ColorPicker pickerId={i} {...this.props} />);
+                            return pickers;
+                        })()}
+                        {(() => {
+                            let pickers = [];
+                            for (let i = 4; i < palette.length; i++)pickers.push(<ColorPicker pickerId={i} {...this.props} />);
+                            return pickers;
+                        })()}
                     </div>
-                    {"４つの色を選択してください。" && <HelpBlock>４つの色を選択してください。</HelpBlock>}
+                    <div className="colorpickers">
+                        <div className="colorpicker-button" onClick={imageAction.addPaletteColor} >＋</div>
+                        <div className="colorpicker-button" onClick={imageAction.removePaletteColor} >ー</div>
+                    </div>
+                    <Tabs>
+                        <Tab eventKey={0} title="グラデーションから選択" >
+                            <GradationColorPicker {...this.props} />
+                        </Tab>
+                        <Tab eventKey={1} title="ランダムに色を選択" >
+                            <ColorPickers {...this.props} />
+                        </Tab>
+                    </Tabs>
+                    <ControlLabel>オプション</ControlLabel>
+                    <Options {...this.props} />
                 </form>
-                {(()=>{
-                    if(submitButtonState){
-                        return (
-                            <div className="submitButton" onClick={()=>imageAction.fetchDotImage(inputImage,dotNumber,palette,smoothing)}>
-                            変換
-                            </div>
-                        );    
-                    }else{
-                        return (
-                            <div className="submitButton disable" >
-                            変換中...
-                            </div>
-                        );    
-                    }
-                })()}
+                <SubmitButton {...this.props} />
             </div>
         );
     }

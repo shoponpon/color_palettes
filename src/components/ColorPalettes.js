@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './ColorPalettes.css';
 
 import ColorPalette from './ColorPalette';
 

@@ -2,6 +2,9 @@ import { ReduceStore } from 'flux/utils';
 import Dispatcher from '../Dispatcher';
 import ImageActionTypes from '../actions/ImageActionTypes';
 
+//const path = "/static/"
+const path = document.domain == 'localhost' ? "" : "/static/";
+
 class ImageStore extends ReduceStore {
     constructor() {
         super(Dispatcher);
@@ -9,8 +12,8 @@ class ImageStore extends ReduceStore {
 
     getInitialState() {
         return {
-            inputImage: "/static/image-select.png",
-            outputImage: "/static/image-select2.png",
+            inputImage: path+"image-select.png",
+            outputImage: path+"image-select2.png",
             palette:['#ffd54f','#3f51b5','#e1bee7','#c8e6c9'],
             palettes:[],
             dotNumber: 2,
@@ -24,7 +27,7 @@ class ImageStore extends ReduceStore {
         switch (action.type) {
             case ImageActionTypes.SELECT_IMAGE_FILE:
                 state.inputImage = action.inputImage;
-                state.outputImage = "/static/image-select2.png";
+                state.outputImage = path+"image-select2.png";
                 break;
             case ImageActionTypes.SELECT_DOT_NUMBER:
                 state.dotNumber = action.dotNumber;
@@ -64,7 +67,7 @@ class ImageStore extends ReduceStore {
                 state.palettes = action.palettes;
                 break;
             case ImageActionTypes.SHOW_LOADING:
-                state.outputImage = "/static/henkanchu.png";
+                state.outputImage = path+"henkanchu.png";
                 break;
             default:
                 break;

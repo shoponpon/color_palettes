@@ -5,7 +5,8 @@ import appAction from './AppAction';
 
 //const ENDPOINT = "https://p8vscrn97b.execute-api.us-east-2.amazonaws.com/prod/lambda_image_to_dot_dev";
 //const ENDPOINT = "https://fc1p9ww3wg.execute-api.us-east-2.amazonaws.com/dev/";
-const ENDPOINT = "http://localhost:5000/pic2dot"
+//const ENDPOINT = "http://localhost:5000/pic2dot"
+const ENDPOINT = "http://eb-flask-api-image-to-dot-dev.us-east-2.elasticbeanstalk.com/image2dot"
 
 const ImageAction = {
     selectImageFile(file) {

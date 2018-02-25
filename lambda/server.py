@@ -1,10 +1,13 @@
+import sys
+sys.path.append('./app')
+
 from flask import Flask, request, jsonify
-from flask_cors import CORS
+#from flask_cors import CORS
 import numpy as np
 import lambda_function
 
 app = Flask(__name__)
-CORS(app)
+#CORS(app)
 
 @app.route('/pic2dot', methods=['POST'])
 def api():

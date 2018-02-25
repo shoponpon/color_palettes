@@ -150,18 +150,16 @@
   margin: 0;
 }
 
-#preview-image {
+.image-wrap {
+  background-color: #707070;
+  padding: 15px;
   text-align: center;
   width: 100%;
+  border-radius: 10px;
 }
 
 #preview-image-tag {
   max-width: 100%;
-}
-
-#line-image {
-  text-align: center;
-  width: 100%;
 }
 
 #line-image-tag {
